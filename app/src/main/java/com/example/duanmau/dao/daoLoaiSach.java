@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.example.duanmau.database.dbHelper;
 import com.example.duanmau.model.LoaiSach;
+import com.example.duanmau.model.Sach;
 import com.example.duanmau.model.ThuThu;
 
 import java.util.ArrayList;
@@ -46,6 +47,13 @@ public class daoLoaiSach {
         ContentValues values = new ContentValues();
         values.put("tenLoai", loaiSach.getTenLoai());
         long row = db.insert("tb_LoaiSach", null, values);
+        return (row > 0);
+    }
+    public boolean update(LoaiSach loaiSach) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("tenLoai", loaiSach.getTenLoai());
+        long row = db.update("tb_LoaiSach", values, "maLoai = ?", new String[]{String.valueOf(loaiSach.getMaLoai())});
         return (row > 0);
     }
     public boolean delete(int maLoai) {

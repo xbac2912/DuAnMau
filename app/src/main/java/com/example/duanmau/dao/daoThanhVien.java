@@ -62,4 +62,39 @@ public class daoThanhVien {
         long row = db.delete("tb_ThanhVien", "maTV=?", new String[]{String.valueOf(maTV)});
         return (row > 0);
     }
+    int row;
+    public int getMaTV(String tenTV) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        try {
+            Cursor cursor = db.rawQuery("SELECT maTV FROM tb_ThanhVien WHERE tb_ThanhVien.tenTV = ?", new String[] {tenTV});
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    row = cursor.getInt(0);
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "Lỗi" + e);
+        }
+        return row;
+    }
+
+    String tenTV;
+    public String getTenTV(int maTV) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        try {
+            Cursor cursor = db.rawQuery("SELECT tenTV FROM tb_ThanhVien WHERE tb_ThanhVien.maTV = ?", new String[] {String.valueOf(maTV)});
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    tenTV = cursor.getString(0);
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "Lỗi" + e);
+        }
+        return tenTV;
+    }
 }

@@ -5,10 +5,16 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,11 +24,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duanmau.R;
 import com.example.duanmau.dao.daoLoaiSach;
+import com.example.duanmau.dao.daoPhieuMuon;
 import com.example.duanmau.dao.daoSach;
 import com.example.duanmau.model.LoaiSach;
 import com.example.duanmau.model.Sach;
 
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 public class adapterSach extends RecyclerView.Adapter<adapterSach.ViewHolder>{
     private final Context context;
@@ -30,7 +38,12 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.ViewHolder>{
     private ArrayList<LoaiSach> listLS;
     daoSach daoSach;
     daoLoaiSach daoLoaiSach;
+    daoPhieuMuon daoPhieuMuon;
     Sach indexSach;
+    int index;
+    EditText txtTenSach, txtGiaThue;
+    TextView lblMaSach;
+    Spinner spnLoaiSach;
     public adapterSach(Context context, ArrayList<Sach> list) {
         this.context = context;
         this.list = list;
@@ -62,7 +75,8 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.ViewHolder>{
         holder.btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                indexSach = list.get(position);
+                OpenDialog_Update();
             }
         });
     }
@@ -111,5 +125,88 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.ViewHolder>{
         });
         Dialog dialog = builder.create();
         dialog.show();
+    }
+    public void OpenDialog_Update() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.layout_sua_sach, null);
+        builder.setView(view);
+        Dialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        lblMaSach = view.findViewById(R.id.lblMaSach);
+        txtTenSach = view.findViewById(R.id.txtTenSach_Up);
+        txtGiaThue = view.findViewById(R.id.txtGiaThue_Up);
+        spnLoaiSach = view.findViewById(R.id.spnLoaiSach_Up);
+
+        lblMaSach.setText("Mã sách: " + indexSach.getMaSach());
+
+        ArrayList<LoaiSach> listLS = new ArrayList<>();
+        listLS = daoLoaiSach.selectAll();
+        ArrayList<String> loaiSachArr = new ArrayList<>();
+        for (LoaiSach x: listLS) {
+            loaiSachArr.add(x.getTenLoai());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, loaiSachArr);
+        spnLoaiSach.setAdapter(adapter);
+
+        for (int i = 0; i < loaiSachArr.size(); i++) {
+            if (loaiSachArr.get(i).toString().equals(indexSach.getTenLoai())) {
+                spnLoaiSach.setSelection(i);
+            }
+        }
+        txtTenSach.setText(String.valueOf(indexSach.getTenSach()));
+        txtGiaThue.setText(String.valueOf(indexSach.getGiaThue()));
+        spnLoaiSach.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                index = daoLoaiSach.getMaLoai(loaiSachArr.get(position).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        view.findViewById(R.id.btnUpdate_S).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tenSach = txtTenSach.getText().toString();
+                String giaThue = txtGiaThue.getText().toString();
+
+                indexSach.setTenSach(tenSach);
+                indexSach.setGiaThue(Integer.valueOf(giaThue));
+                indexSach.setMaLoai(index);
+
+                if(tenSach.isEmpty() || giaThue.isEmpty()) {
+                    Toast.makeText(context, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                } else {
+                    if(giaThue.matches("\\d+") == false) {
+                        Toast.makeText(context, "Giá thuê sai định dạng", Toast.LENGTH_SHORT).show();
+                    } else if(Integer.valueOf(giaThue) < 0) {
+                        Toast.makeText(context, "Giá thuê phải lớn hơn 0", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(daoSach.update(indexSach)) {
+                        list.clear();
+                        list.addAll(daoSach.selectAll());
+                        daoPhieuMuon = new daoPhieuMuon(context);
+                        daoPhieuMuon.selectAll();
+                        dialog.dismiss();
+                        notifyDataSetChanged();
+                        Toast.makeText(context, "Update thành công", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Update thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+        view.findViewById(R.id.btnHuy_S).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 }

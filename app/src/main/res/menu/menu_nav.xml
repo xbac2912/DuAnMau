@@ -12,12 +12,12 @@
         <item
             android:id="@+id/item_qlls"
             android:title="Quản lý Loại Sách"
-            android:icon="@drawable/phieumuon"
+            android:icon="@drawable/lsiconnav"
             />
         <item
             android:id="@+id/item_qls"
             android:title="Quản lý Sách"
-            android:icon="@drawable/phieumuon"
+            android:icon="@drawable/bookiconav"
             />
         <item
             android:id="@+id/item_qltv"

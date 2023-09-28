@@ -5,9 +5,13 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +31,7 @@ public class adapterLoaiSach extends RecyclerView.Adapter<adapterLoaiSach.ViewHo
     private final Context context;
     daoLoaiSach daoLoaiSach;
     LoaiSach indexLoaiSach;
+    TextView txtTenLoai, lblLoaiSach;
 
     public adapterLoaiSach(ArrayList<LoaiSach> list, Context context) {
         this.list = list;
@@ -53,6 +58,13 @@ public class adapterLoaiSach extends RecyclerView.Adapter<adapterLoaiSach.ViewHo
                 openDialog_del();
             }
         });
+        holder.btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                indexLoaiSach = list.get(position);
+                OpenDialog_Update();
+            }
+        });
     }
 
     @Override
@@ -62,12 +74,13 @@ public class adapterLoaiSach extends RecyclerView.Adapter<adapterLoaiSach.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView lblMaLoai, lblTenLoai;
-        ImageButton btnXoa;
+        ImageButton btnXoa, btnUpdate;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             lblMaLoai = itemView.findViewById(R.id.lblMaLoai);
             lblTenLoai = itemView.findViewById(R.id.lblTenLoai);
-            btnXoa = itemView.findViewById(R.id.btnXoa_LS);
+            btnXoa = itemView.findViewById(R.id.btnXoa);
+            btnUpdate = itemView.findViewById(R.id.btnUpdate);
         }
     }
     public void openDialog_del() {
@@ -96,5 +109,49 @@ public class adapterLoaiSach extends RecyclerView.Adapter<adapterLoaiSach.ViewHo
         });
         Dialog dialog = builder.create();
         dialog.show();
+    }
+    public void OpenDialog_Update() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.layout_sua_loaisach, null);
+        builder.setView(view);
+        Dialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        lblLoaiSach = view.findViewById(R.id.lblMaLoai);
+        txtTenLoai = view.findViewById(R.id.txtTenLoai_Up);
+
+        txtTenLoai.setText(indexLoaiSach.getTenLoai());
+        lblLoaiSach.setText("Mã loại: " + indexLoaiSach.getMaLoai());
+
+        view.findViewById(R.id.btnUpdate_LS).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tenLoai = txtTenLoai.getText().toString();
+
+                indexLoaiSach.setTenLoai(tenLoai);
+
+                if(tenLoai.isEmpty()) {
+                    Toast.makeText(context, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                } else {
+                    if(daoLoaiSach.update(indexLoaiSach)) {
+                        list.clear();
+                        list.addAll(daoLoaiSach.selectAll());
+                        dialog.dismiss();
+                        notifyDataSetChanged();
+                        Toast.makeText(context, "Update thành công", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Update thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+        view.findViewById(R.id.btnHuy_LS).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 }

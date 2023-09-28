@@ -21,7 +21,7 @@
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_marginHorizontal="15dp"
-                android:src="@drawable/bookitem"/>
+                android:src="@drawable/bill"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,15 +37,31 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#FF0000"
-                        android:textStyle="bold"
-                        android:text="Mã sách: " />
+                        android:text="Mã phiếu: " />
                     <TextView
-                        android:id="@+id/lblMaSach"
+                        android:id="@+id/lblMaPhieu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Mã sách"
-                        android:textStyle="bold"
+                        android:text="Mã phiếu"
                         android:textColor="#FF0000"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="#99000000"
+                        android:text="Thành viên: "/>
+                    <TextView
+                        android:id="@+id/lblTenTV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tên thành viên"
+                        android:textStyle="bold"
+                        android:textColor="#99000000" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -75,7 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#000000"
-                        android:text="Giá thuê: "/>
+                        android:text="Tiền thuê: "/>
                     <TextView
                         android:id="@+id/lblGiaThue"
                         android:layout_width="match_parent"
@@ -83,22 +99,36 @@
                         android:text="Giá thuê"
                         android:textColor="@color/black" />
                 </LinearLayout>
-                <LinearLayout
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/lblTraSach"
+                android:layout_width="63dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="31dp"
+                android:textStyle="bold"
+                android:textSize="10dp"
+                android:textColor="#03A9F4"
+                android:text="Chưa trả sách"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:text="Ngày thuê: "/>
+                <TextView
+                    android:id="@+id/lblNgayThue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#000000"
-                        android:text="Loại sách: "/>
-                    <TextView
-                        android:id="@+id/lblLoaiSach"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Loại sách"
-                        android:textColor="@color/black"/>
-                </LinearLayout>
+                    android:text="Ngày thuê"
+                    android:textColor="@color/black"/>
             </LinearLayout>
         </LinearLayout>
         <TextView

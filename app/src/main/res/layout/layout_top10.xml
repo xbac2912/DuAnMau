@@ -38,16 +38,18 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#FF0000"
+                        android:textColor="#000000"
                         android:textStyle="bold"
-                        android:text="Mã loại: " />
+                        android:text="Tên sách: "
+                        android:textSize="16sp" />
                     <TextView
-                        android:id="@+id/lblMaLoai"
+                        android:id="@+id/lblTenSach"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Mã loại"
+                        android:text="Tên sách"
+                        android:textSize="16sp"
                         android:textStyle="bold"
-                        android:textColor="#FF0000"/>
+                        android:textColor="@color/black" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -56,45 +58,16 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#000000"
-                        android:textStyle="bold"
-                        android:text="Tên loại: "
-                        android:textSize="16sp" />
+                        android:textColor="#99000000"
+                        android:text="Số lượng: " />
                     <TextView
-                        android:id="@+id/lblTenLoai"
+                        android:id="@+id/lblSoLuong"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Tên loại"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black" />
+                        android:text="Số lượng"
+                        android:textColor="#99000000"/>
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-        <TextView
-            android:layout_width="350dp"
-            android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
-            android:background="#0D000000"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <ImageButton
-                android:id="@+id/btnUpdate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:layout_marginHorizontal="20dp"
-                android:src="@drawable/writing"/>
-            <ImageButton
-                android:id="@+id/btnXoa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:layout_marginHorizontal="20dp"
-                android:src="@drawable/block"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         tenUser = header.findViewById(R.id.username);
         for(ThuThu x : listTT) {
             if(getIntent().getStringExtra("maTT").equals(x.getMaTT())) {
-                tenUser.setText(x.getTenTT());
+                tenUser.setText("Welcome " + x.getTenTT());
                 if (x.getChucVu() == 0) {
                     navigationView.getMenu().findItem(R.id.item_themthuthu).setVisible(true);
                 } else {
@@ -79,21 +79,27 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment = null;
                 if(item.getItemId() == R.id.item_qlpm) {
+                    toolbar.setTitle(item.getTitle());
                     fragment = new Fragment_PhieuMuon();
                     replaceFrg(fragment);
                 } else if (item.getItemId() == R.id.item_qlls) {
+                    toolbar.setTitle(item.getTitle());
                     fragment = new Fragment_LoaiSach();
                     replaceFrg(fragment);
                 } else if (item.getItemId() == R.id.item_qls) {
+                    toolbar.setTitle(item.getTitle());
                     fragment = new Fragment_Sach();
                     replaceFrg(fragment);
                 } else if (item.getItemId() == R.id.item_qltv) {
+                    toolbar.setTitle(item.getTitle());
                     fragment = new Fragment_ThanhVien();
                     replaceFrg(fragment);
                 } else if (item.getItemId() == R.id.item_top10) {
+                    toolbar.setTitle(item.getTitle());
                     fragment = new Fragment_Top10();
                     replaceFrg(fragment);
                 } else if (item.getItemId() == R.id.item_doanhthu) {
+                    toolbar.setTitle(item.getTitle());
                     fragment = new Fragment_DoanhThu();
                     replaceFrg(fragment);
                 } else if (item.getItemId() == R.id.item_themthuthu) {
@@ -103,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
                 } else if (item.getItemId() == R.id.item_dangxuat) {
                     OpenDialog_DangXuat();
                 }
-                toolbar.setTitle(item.getTitle());
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return false;
             }

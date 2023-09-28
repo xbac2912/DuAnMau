@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="THÊM SÁCH"
+            android:text="THÊM PHIẾU MƯỢN"
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="20sp"
@@ -24,29 +24,65 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Loại Sách"
+            android:text="Thành viên: "
             android:paddingHorizontal="20dp"
             android:textColor="#000000"/>
         <Spinner
-            android:id="@+id/spnLoaiSach"
+            android:id="@+id/spnThanhVien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
             android:layout_marginBottom="5dp"/>
-        <EditText
-            android:id="@+id/txtTenSach"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nhập tên sách"
-            android:drawableLeft="@drawable/bookthemsach"
+            android:text="Sách: "
+            android:paddingHorizontal="20dp"
+            android:textColor="#000000"/>
+        <Spinner
+            android:id="@+id/spnSach"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginBottom="5dp"/>
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Ngày: "-->
+<!--            android:textSize="18dp"-->
+<!--            android:layout_marginVertical="5dp"-->
+<!--            android:paddingHorizontal="20dp"-->
+<!--            android:textColor="#000000"/>-->
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Tiền thuê: "-->
+<!--            android:textSize="18dp"-->
+<!--            android:layout_marginVertical="5dp"-->
+<!--            android:paddingHorizontal="20dp"-->
+<!--            android:textColor="#000000"/>-->
+        <EditText
+            android:id="@+id/txtNgayThue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ngày thuê"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:inputType="none"
+            android:drawableLeft="@drawable/calendar"
             android:layout_marginHorizontal="15dp"
             android:layout_marginVertical="5dp"
             android:padding="10dp"/>
         <EditText
-            android:id="@+id/txtGiaThue"
+            android:id="@+id/txtTienThue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nhập giá thuê"
+            android:hint="Tiền thuê"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:inputType="none"
             android:drawableStart="@drawable/wallet"
             android:layout_marginHorizontal="15dp"
             android:layout_marginVertical="5dp"
@@ -54,11 +90,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:gravity="end"
             android:orientation="horizontal">
             <Button
-                android:id="@+id/btnHuy_S"
+                android:id="@+id/btnHuy_PM"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:text="Hủy"
@@ -66,7 +102,7 @@
                 android:background="#00000000"
                 android:textStyle="bold" />
             <Button
-                android:id="@+id/btnThem_S"
+                android:id="@+id/btnThem_PM"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Thêm"

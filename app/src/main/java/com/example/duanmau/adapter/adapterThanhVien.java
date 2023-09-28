@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,8 @@ import com.example.duanmau.R;
 import com.example.duanmau.dao.daoThanhVien;
 import com.example.duanmau.model.ThanhVien;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class adapterThanhVien extends RecyclerView.Adapter<adapterThanhVien.ViewHolder> {
@@ -27,6 +31,7 @@ public class adapterThanhVien extends RecyclerView.Adapter<adapterThanhVien.View
     private final ArrayList<ThanhVien> list;
     daoThanhVien daoThanhVien;
     ThanhVien tv;
+    TextView txtTenTV, txtNamSinh, lblMaTV;
 
     public adapterThanhVien(Context context, ArrayList<ThanhVien> list) {
         this.context = context;
@@ -80,7 +85,7 @@ public class adapterThanhVien extends RecyclerView.Adapter<adapterThanhVien.View
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (i == 0) {
-                    Toast.makeText(context, "Chỉnh sửa", Toast.LENGTH_SHORT).show();
+                    OpenDialog_Update();
                 } else if (i == 1) {
                     openDialog_del();
                 }
@@ -115,5 +120,51 @@ public class adapterThanhVien extends RecyclerView.Adapter<adapterThanhVien.View
         });
         Dialog dialog = builder.create();
         dialog.show();
+    }
+    public void OpenDialog_Update() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.layout_sua_thanhvien, null);
+        builder.setView(view);
+        Dialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        txtTenTV = view.findViewById(R.id.txtTenTV_Up);
+        txtNamSinh = view.findViewById(R.id.txtNamSinh_Up);
+        lblMaTV = view.findViewById(R.id.lblMaTV);
+
+        txtTenTV.setText(tv.getTenTV());
+        txtNamSinh.setText(tv.getNamSinh());
+        lblMaTV.setText("Mã thành viên: " + tv.getMaTV());
+        view.findViewById(R.id.btnThem_TV).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tenTV = txtTenTV.getText().toString();
+                String namSinh = txtNamSinh.getText().toString();
+
+                if(tenTV.isEmpty() || namSinh.isEmpty()) {
+                    Toast.makeText(context, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                } else {
+                    tv.setTenTV(tenTV);
+                    tv.setNamSinh(namSinh);
+                    if(daoThanhVien.update(tv)) {
+                        list.clear();
+                        list.addAll(daoThanhVien.selectAll());
+                        dialog.dismiss();
+                        notifyDataSetChanged();
+                        Toast.makeText(context, "Update thành công", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Update thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+        view.findViewById(R.id.btnHuy_TV).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 }

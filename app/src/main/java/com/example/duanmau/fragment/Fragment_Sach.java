@@ -150,7 +150,7 @@ public class Fragment_Sach extends Fragment {
         for (LoaiSach x: listLS) {
             loaiSachArr.add(x.getTenLoai());
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, loaiSachArr);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, loaiSachArr);
         spnLoaiSach.setAdapter(adapter);
         spnLoaiSach.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -169,7 +169,7 @@ public class Fragment_Sach extends Fragment {
                 String tenSach = txtTenSach.getText().toString();
                 String giaThue = txtGiaThue.getText().toString();
 
-                if(tenSach.isEmpty() || giaThue.isEmpty()) {
+                if(tenSach.isEmpty() || giaThue.isEmpty() || loaiSachArr.isEmpty()) {
                     Toast.makeText(getContext(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else {
                     if(giaThue.matches("\\d+") == false) {
@@ -187,6 +187,12 @@ public class Fragment_Sach extends Fragment {
                         Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
                     }
                 }
+            }
+        });
+        view.findViewById(R.id.btnHuy_S).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
             }
         });
     }

@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="THÊM SÁCH"
+            android:text="UPDATE"
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="20sp"
@@ -22,31 +22,27 @@
             android:layout_marginBottom="5dp"
             android:textColor="#000000"/>
         <TextView
+            android:id="@+id/lblMaTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Loại Sách"
+            android:text="Mã Thành Viên: "
             android:paddingHorizontal="20dp"
-            android:textColor="#000000"/>
-        <Spinner
-            android:id="@+id/spnLoaiSach"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="15dp"
+            android:textColor="#FF0000"/>
         <EditText
-            android:id="@+id/txtTenSach"
+            android:id="@+id/txtTenTV_Up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nhập tên sách"
+            android:hint="Nhập tên"
             android:drawableLeft="@drawable/bookthemsach"
             android:layout_marginHorizontal="15dp"
             android:layout_marginVertical="5dp"
             android:padding="10dp"/>
         <EditText
-            android:id="@+id/txtGiaThue"
+            android:id="@+id/txtNamSinh_Up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nhập giá thuê"
+            android:hint="Nhập năm sinh"
             android:drawableStart="@drawable/wallet"
             android:layout_marginHorizontal="15dp"
             android:layout_marginVertical="5dp"
@@ -58,7 +54,7 @@
             android:gravity="end"
             android:orientation="horizontal">
             <Button
-                android:id="@+id/btnHuy_S"
+                android:id="@+id/btnHuy_TV"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:text="Hủy"
@@ -66,10 +62,10 @@
                 android:background="#00000000"
                 android:textStyle="bold" />
             <Button
-                android:id="@+id/btnThem_S"
+                android:id="@+id/btnThem_TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Thêm"
+                android:text="Lưu"
                 android:textColor="#8692F7"
                 android:background="#00000000"
                 android:textStyle="bold" />

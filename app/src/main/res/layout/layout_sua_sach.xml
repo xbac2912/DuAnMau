@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="THÊM SÁCH"
+            android:text="UPDATE"
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="20sp"
@@ -22,19 +22,27 @@
             android:layout_marginBottom="5dp"
             android:textColor="#000000"/>
         <TextView
+            android:id="@+id/lblMaSach"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mã Sách: "
+            android:paddingHorizontal="20dp"
+            android:layout_marginBottom="15dp"
+            android:textColor="#FF0000"/>
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Loại Sách"
             android:paddingHorizontal="20dp"
             android:textColor="#000000"/>
         <Spinner
-            android:id="@+id/spnLoaiSach"
+            android:id="@+id/spnLoaiSach_Up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
             android:layout_marginBottom="5dp"/>
         <EditText
-            android:id="@+id/txtTenSach"
+            android:id="@+id/txtTenSach_Up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nhập tên sách"
@@ -43,7 +51,7 @@
             android:layout_marginVertical="5dp"
             android:padding="10dp"/>
         <EditText
-            android:id="@+id/txtGiaThue"
+            android:id="@+id/txtGiaThue_Up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nhập giá thuê"
@@ -66,10 +74,10 @@
                 android:background="#00000000"
                 android:textStyle="bold" />
             <Button
-                android:id="@+id/btnThem_S"
+                android:id="@+id/btnUpdate_S"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Thêm"
+                android:text="Lưu"
                 android:textColor="#8692F7"
                 android:background="#00000000"
                 android:textStyle="bold" />

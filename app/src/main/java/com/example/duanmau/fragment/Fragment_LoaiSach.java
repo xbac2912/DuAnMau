@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,9 +29,11 @@ public class Fragment_LoaiSach extends Fragment {
     RecyclerView rcvLoaiSach;
     FloatingActionButton flt_btn_Them;
     private ArrayList<LoaiSach> list = new ArrayList<>();
+    private ArrayList<LoaiSach> searchList;
     daoLoaiSach daoLoaiSach;
     adapterLoaiSach adapterLoaiSach;
     EditText txtTenLoai;
+    SearchView searchView;
     public Fragment_LoaiSach() {
         // Required empty public constructor
     }
@@ -42,6 +45,8 @@ public class Fragment_LoaiSach extends Fragment {
         View view = inflater.inflate(R.layout.fragment__loai_sach, container, false);
         rcvLoaiSach = view.findViewById(R.id.rcvLoaiSach);
         flt_btn_Them = view.findViewById(R.id.flt_btn_Them);
+        searchView = view.findViewById(R.id.searchView);
+        //
         daoLoaiSach = new daoLoaiSach(getContext());
         list = daoLoaiSach.selectAll();
         adapterLoaiSach = new adapterLoaiSach(list, getContext());
@@ -54,6 +59,62 @@ public class Fragment_LoaiSach extends Fragment {
             @Override
             public void onClick(View v) {
                 openDialog_Them();
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchList = new ArrayList<>();
+                if (query.length() > 0) {
+                    for(int i = 0; i < list.size(); i++) {
+                        if(list.get(i).getTenLoai().toUpperCase().contains(query.toUpperCase())) {
+                            LoaiSach ls = new LoaiSach();
+                            ls.setMaLoai(list.get(i).getMaLoai());
+                            ls.setTenLoai(list.get(i).getTenLoai());
+                            searchList.add(ls);
+                        }
+                    }
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                    rcvLoaiSach.setLayoutManager(linearLayoutManager);
+                    adapterLoaiSach = new adapterLoaiSach(searchList, getContext());
+                    rcvLoaiSach.setAdapter(adapterLoaiSach);
+                    adapterLoaiSach.notifyDataSetChanged();
+                } else {
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                    rcvLoaiSach.setLayoutManager(linearLayoutManager);
+                    adapterLoaiSach = new adapterLoaiSach(list, getContext());
+                    rcvLoaiSach.setAdapter(adapterLoaiSach);
+                    adapterLoaiSach.notifyDataSetChanged();
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchList = new ArrayList<>();
+                if (newText.length() > 0) {
+                    for(int i = 0; i < list.size(); i++) {
+                        if(list.get(i).getTenLoai().toUpperCase().contains(newText.toUpperCase())) {
+                            LoaiSach ls = new LoaiSach();
+                            ls.setMaLoai(list.get(i).getMaLoai());
+                            ls.setTenLoai(list.get(i).getTenLoai());
+                            searchList.add(ls);
+                        }
+                    }
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                    rcvLoaiSach.setLayoutManager(linearLayoutManager);
+                    adapterLoaiSach = new adapterLoaiSach(searchList, getContext());
+                    rcvLoaiSach.setAdapter(adapterLoaiSach);
+                    adapterLoaiSach.notifyDataSetChanged();
+                } else {
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                    rcvLoaiSach.setLayoutManager(linearLayoutManager);
+                    adapterLoaiSach = new adapterLoaiSach(list, getContext());
+                    rcvLoaiSach.setAdapter(adapterLoaiSach);
+                    adapterLoaiSach.notifyDataSetChanged();
+                }
+                return false;
             }
         });
         return view;
@@ -85,6 +146,12 @@ public class Fragment_LoaiSach extends Fragment {
                         Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
                     }
                 }
+            }
+        });
+        view.findViewById(R.id.btnHuy_LS).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
             }
         });
     }
