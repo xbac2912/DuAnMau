@@ -204,9 +204,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 maTT = getIntent().getStringExtra("maTT");
-                String matKhauCu = txtMatKhauCu.getText().toString();
-                matKhauMoi = txtMatKhauMoi.getText().toString();
-                String matKhauXacNhan = txtMatKhauXacNhan.getText().toString();
+                String matKhauCu = txtMatKhauCu.getText().toString().trim();
+                matKhauMoi = txtMatKhauMoi.getText().toString().trim();
+                String matKhauXacNhan = txtMatKhauXacNhan.getText().toString().trim();
 
                 if (matKhauCu.isEmpty() || matKhauMoi.isEmpty() || matKhauXacNhan.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();

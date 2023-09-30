@@ -60,7 +60,7 @@ public class log_in extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String tk = s.toString();
+                String tk = s.toString().trim();
                 if (tk.isEmpty()) {
                     textInputLayoutTK.setError("Vui lòng nhập tài khoản");
                 } else {
@@ -81,7 +81,7 @@ public class log_in extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String mk = s.toString();
+                String mk = s.toString().trim();
                 if (mk.isEmpty()) {
                     textInputLayoutMK.setError("Vui lòng nhập mật khẩu");
                 } else {
