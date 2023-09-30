@@ -65,7 +65,7 @@ public class adapterPhieuMuon extends RecyclerView.Adapter<adapterPhieuMuon.View
         holder.lblMaPM.setText(String.valueOf(list.get(position).getMaPhieuMuon()));
         holder.lblTenTV.setText(list.get(position).getTenTV());
         holder.lblTenSach.setText(list.get(position).getTenSach());
-        holder.lblGiaThue.setText(String.valueOf(list.get(position).getTienThue()));
+        holder.lblGiaThue.setText(list.get(position).getTienThue() + " VNĐ");
         holder.lblNgayThue.setText(list.get(position).getNgayMuon());
         if (list.get(position).getTrangThai() == 0) {
             holder.lblTrangThai.setText("Đã trả sách");

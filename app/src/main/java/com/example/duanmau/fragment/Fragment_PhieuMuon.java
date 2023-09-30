@@ -1,5 +1,6 @@
 package com.example.duanmau.fragment;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -16,7 +17,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +48,7 @@ public class Fragment_PhieuMuon extends Fragment {
     adapterPhieuMuon adapterPhieuMuon;
     Spinner spnThanhVien, spnSach;
     EditText txtNgayThue, txtTienThue;
+    ImageButton btnNgayThue;
     daoSach daoSach;
     daoThanhVien daoThanhVien;
     int indexS, indexTV;
@@ -155,6 +159,7 @@ public class Fragment_PhieuMuon extends Fragment {
         txtNgayThue = view.findViewById(R.id.txtNgayThue);
         txtTienThue = view.findViewById(R.id.txtTienThue);
         spnThanhVien = view.findViewById(R.id.spnThanhVien);
+        btnNgayThue = view.findViewById(R.id.btnNgayThue);
         spnSach = view.findViewById(R.id.spnSach);
 
         daoSach = new daoSach(getContext());
@@ -205,6 +210,18 @@ public class Fragment_PhieuMuon extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+        btnNgayThue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog getDay = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        txtNgayThue.setText(String.format("%d/%d/%d", dayOfMonth, month+1, year));
+                    }
+                }, year, month, day);
+                getDay.show();
             }
         });
         txtNgayThue.setText(String.format("%d/%d/%d", day, month + 1, year));

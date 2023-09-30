@@ -15,27 +15,63 @@
         android:layout_marginTop="400dp"
         android:layout_marginHorizontal="20dp"
         android:orientation="vertical">
-        <EditText
-            android:id="@+id/txtTaiKhoan"
+<!--        <EditText-->
+<!--            android:id="@+id/txtTaiKhoan"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="Username"-->
+<!--            android:layout_marginVertical="10dp"-->
+<!--            android:layout_marginHorizontal="20dp"-->
+<!--            android:background="@drawable/khung_input"-->
+<!--            android:drawableStart="@drawable/person_taikhoan"-->
+<!--            android:padding="10dp" />-->
+<!--        <EditText-->
+<!--            android:id="@+id/txtMatKhau"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="Password"-->
+<!--            android:inputType="textPassword"-->
+<!--            android:layout_marginVertical="10dp"-->
+<!--            android:layout_marginHorizontal="20dp"-->
+<!--            android:drawableEnd="@drawable/eye"-->
+<!--            android:background="@drawable/khung_input"-->
+<!--            android:drawableStart="@drawable/lock_matkhau"-->
+<!--            android:padding="10dp"/>-->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"
-            android:layout_marginVertical="10dp"
             android:layout_marginHorizontal="20dp"
-            android:background="@drawable/khung_input"
-            android:drawableStart="@drawable/person_taikhoan"
-            android:padding="10dp" />
-        <EditText
-            android:id="@+id/txtMatKhau"
+            android:hint="Tài Khoản"
+            app:helperTextTextColor="#FF0000"
+            app:expandedHintEnabled="true"
+            app:hintTextColor="#66000000"
+            app:startIconDrawable="@drawable/person_taikhoan">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtTaiKhoan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/khung_input"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputPw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:layout_marginVertical="10dp"
             android:layout_marginHorizontal="20dp"
-            android:background="@drawable/khung_input"
-            android:drawableStart="@drawable/lock_matkhau"
-            android:padding="10dp"/>
+            android:layout_marginVertical="15dp"
+            app:hintTextColor="#66000000"
+            android:hint="Mật khẩu"
+            app:helperTextTextColor="#FF0000"
+            app:endIconMode="password_toggle"
+            app:startIconDrawable="@drawable/lock_matkhau">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtMatKhau"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/khung_input"
+                android:inputType="textPassword"/>
+        </com.google.android.material.textfield.TextInputLayout>
         <CheckBox
             android:id="@+id/chkLuuMatKhau"
             android:layout_width="wrap_content"

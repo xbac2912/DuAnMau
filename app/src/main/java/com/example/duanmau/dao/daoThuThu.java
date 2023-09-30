@@ -65,10 +65,24 @@ public class daoThuThu {
     public boolean checklogin(String username, String password) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM tb_ThuThu WHERE maTT=? and matKhau=?", new String[] {username, password});
-//        int row = cursor.getCount();
         if (cursor.getCount() != 0)
             return true;
         else
             return false;
+    }
+    public boolean checkMaTT(String maTT) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT maTT FROM tb_ThuThu WHERE maTT = ?", new String[] {maTT});
+        if (cursor.getCount() != 0)
+            return true;
+        else
+            return false;
+    }
+    public boolean doiMatKhau(String maTT, String matKhau) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("matKhau", matKhau);
+        long row = db.update("tb_ThuThu", values, "maTT = ?", new String[]{String.valueOf(maTT)});
+        return (row > 0);
     }
 }

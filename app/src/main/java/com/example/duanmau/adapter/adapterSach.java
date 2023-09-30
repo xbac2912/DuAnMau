@@ -63,7 +63,7 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.lblMaSach.setText(String.valueOf(list.get(position).getMaSach()));
         holder.lblTenSach.setText(list.get(position).getTenSach());
-        holder.lblGiaThue.setText(String.valueOf(list.get(position).getGiaThue()));
+        holder.lblGiaThue.setText(list.get(position).getGiaThue() + " VNĐ");
         holder.lblLoaiSach.setText(String.valueOf(list.get(position).getTenLoai()));
         holder.btnXoa.setOnClickListener(new View.OnClickListener() {
             @Override
