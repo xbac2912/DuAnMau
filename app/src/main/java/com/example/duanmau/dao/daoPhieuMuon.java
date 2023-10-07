@@ -27,8 +27,8 @@ public class daoPhieuMuon {
     public ArrayList<PhieuMuon> selectAll() {
         ArrayList<PhieuMuon> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        SQLiteDatabase dbb = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
+//        SQLiteDatabase dbb = dbHelper.getWritableDatabase();
+//        ContentValues values = new ContentValues();
         try {
             Cursor cursor =db.rawQuery("SELECT * FROM tb_PhieuMuon INNER JOIN tb_ThanhVien ON tb_PhieuMuon.maTV = tb_ThanhVien.maTV INNER JOIN tb_Sach ON tb_PhieuMuon.maSach = tb_Sach.maSach", null);
             if (cursor.getCount() > 0) {
@@ -39,13 +39,13 @@ public class daoPhieuMuon {
                     pm.setMaTT(cursor.getString(1));
                     pm.setMaTV(cursor.getInt(2));
                     pm.setMaSach(cursor.getInt(3));
-                    pm.setTienThue(cursor.getInt(12));
+                    pm.setTienThue(cursor.getInt(4));
                     pm.setNgayMuon(cursor.getString(5));
                     pm.setTrangThai(cursor.getInt(6));
                     pm.setTenTV(cursor.getString(8));
                     pm.setTenSach(cursor.getString(11));
-                    values.put("tienThue", cursor.getInt(12));
-                    dbb.update("tb_PhieuMuon", values, "maPhieuMuon = ?", new String[]{String.valueOf(cursor.getInt(0))});
+//                    values.put("tienThue", cursor.getInt(12));
+//                    dbb.update("tb_PhieuMuon", values, "maPhieuMuon = ?", new String[]{String.valueOf(cursor.getInt(0))});
                     list.add(pm);
                     cursor.moveToNext();
                 }

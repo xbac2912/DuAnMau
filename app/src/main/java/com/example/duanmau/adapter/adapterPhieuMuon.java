@@ -2,17 +2,21 @@ package com.example.duanmau.adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.GregorianCalendar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -44,7 +48,8 @@ public class adapterPhieuMuon extends RecyclerView.Adapter<adapterPhieuMuon.View
     daoSach daoSach;
     daoThanhVien daoThanhVien;
     PhieuMuon index;
-    int indexS;
+    SimpleDateFormat  sdf = new SimpleDateFormat("dd/MM/yyyy");
+    int ngay, thang, nam;
 
     public adapterPhieuMuon(Context context, ArrayList<PhieuMuon> list) {
         this.context = context;
@@ -166,11 +171,16 @@ public class adapterPhieuMuon extends RecyclerView.Adapter<adapterPhieuMuon.View
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, sachArr);
         spnSach.setAdapter(adapter);
+        for (int i = 0; i < sachArr.size(); i++) {
+            if (sachArr.get(i).equals(daoSach.getTenS(index.getMaSach()))) {
+                spnSach.setSelection(i);
+            }
+        }
         spnSach.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                indexS = daoSach.getMaS(sachArr.get(position).toString());
                 txtTienThue.setText(String.valueOf(daoSach.getTienThue(sachArr.get(position).toString())));
+//                txtTienThue.setText(String.valueOf(index.getTienThue()));
             }
 
             @Override
@@ -203,9 +213,9 @@ public class adapterPhieuMuon extends RecyclerView.Adapter<adapterPhieuMuon.View
         view.findViewById(R.id.btnUpdate_PM).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tienThue = txtTienThue.getText().toString();
-                index.setMaSach(indexS);
-                index.setTienThue(Integer.valueOf(tienThue));
+//                String tienThue = txtTienThue.getText().toString();
+//                index.setMaSach(indexS);
+//                index.setTienThue(Integer.valueOf(tienThue));
                 if (chkTrangThai.isChecked()) {
                      index.setTrangThai(0);
                 } else {

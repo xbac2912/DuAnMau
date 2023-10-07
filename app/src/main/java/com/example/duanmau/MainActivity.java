@@ -250,4 +250,7 @@ public class MainActivity extends AppCompatActivity {
         Dialog dialog = builder.create();
         dialog.show();
     }
+    public String getMaTT() {
+        return getIntent().getStringExtra("maTT");
+    }
 }

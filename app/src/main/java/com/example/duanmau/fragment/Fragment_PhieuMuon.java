@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.GregorianCalendar;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -24,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.duanmau.MainActivity;
 import com.example.duanmau.R;
 import com.example.duanmau.adapter.adapterPhieuMuon;
 import com.example.duanmau.adapter.adapterSach;
@@ -53,6 +56,9 @@ public class Fragment_PhieuMuon extends Fragment {
     daoThanhVien daoThanhVien;
     int indexS, indexTV;
     SearchView searchView;
+    MainActivity mainActivity;
+    SimpleDateFormat  sdf = new SimpleDateFormat("yyyy/MM/dd");
+    int ngay, thang, nam;
     public Fragment_PhieuMuon() {
         // Required empty public constructor
     }
@@ -62,6 +68,7 @@ public class Fragment_PhieuMuon extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment__phieu_muon, container, false);
+        mainActivity = (MainActivity) getActivity();
         rcvPhieuMuon = view.findViewById(R.id.rcvPhieuMuon);
         flt_btn_Them = view.findViewById(R.id.flt_btn_Them);
         searchView = view.findViewById(R.id.searchView);
@@ -166,9 +173,9 @@ public class Fragment_PhieuMuon extends Fragment {
         daoThanhVien = new daoThanhVien(getContext());
 
         Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        nam = calendar.get(Calendar.YEAR);
+        thang = calendar.get(Calendar.MONTH);
+        ngay = calendar.get(Calendar.DAY_OF_MONTH);
 
         ArrayList<Sach> listS = new ArrayList<>();
         listS = daoSach.selectAll();
@@ -215,25 +222,24 @@ public class Fragment_PhieuMuon extends Fragment {
         btnNgayThue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog getDay = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        txtNgayThue.setText(String.format("%d/%d/%d", dayOfMonth, month+1, year));
-                    }
-                }, year, month, day);
-                getDay.show();
+                DatePickerDialog d = new DatePickerDialog(getContext(), 0, dateNgayThue, nam, thang, ngay);
+                d.show();
             }
         });
-        txtNgayThue.setText(String.format("%d/%d/%d", day, month + 1, year));
+//        txtNgayThue.setText(String.format("%d/%d/%d", day, month + 1, year));
+        GregorianCalendar gregorianCalendar = new GregorianCalendar( nam, thang, ngay);
+        txtNgayThue.setText(sdf.format(gregorianCalendar.getTime()));
+
         view.findViewById(R.id.btnThem_PM).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String maTT = mainActivity.getMaTT();
                 String ngayThue = txtNgayThue.getText().toString();
                 String tienThue = txtTienThue.getText().toString();
                 if (thanhVienArr.isEmpty() || sachArr.isEmpty()) {
                     Toast.makeText(getContext(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else {
-                    if(daoPhieuMuon.insert(new PhieuMuon("TT01", indexTV, indexS, Integer.valueOf(tienThue), ngayThue, 1))) {
+                    if(daoPhieuMuon.insert(new PhieuMuon( maTT, indexTV, indexS, Integer.valueOf(tienThue), ngayThue, 1))) {
                         list.clear();
                         list.addAll(daoPhieuMuon.selectAll());
                         dialog.dismiss();
@@ -252,4 +258,14 @@ public class Fragment_PhieuMuon extends Fragment {
             }
         });
     }
+    DatePickerDialog.OnDateSetListener dateNgayThue = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            ngay = dayOfMonth;
+            thang = month;
+            nam = year;
+            GregorianCalendar gregorianCalendar = new GregorianCalendar( nam, thang, ngay);
+            txtNgayThue.setText(sdf.format(gregorianCalendar.getTime()));
+        }
+    };
 }
