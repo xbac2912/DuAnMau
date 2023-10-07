@@ -131,7 +131,7 @@ public class Fragment_LoaiSach extends Fragment {
         view.findViewById(R.id.btnThem_LS).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String ten = txtTenLoai.getText().toString();
+                String ten = txtTenLoai.getText().toString().trim();
 
                 if(ten.isEmpty()) {
                     Toast.makeText(getContext(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();

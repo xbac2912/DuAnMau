@@ -1,8 +1,11 @@
 package com.example.duanmau.fragment;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.GregorianCalendar;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -17,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +34,7 @@ import com.example.duanmau.model.ThanhVien;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Fragment_ThanhVien extends Fragment {
     RecyclerView rcvThanhVien;
@@ -40,6 +45,8 @@ public class Fragment_ThanhVien extends Fragment {
     adapterThanhVien adapterThanhVien;
     TextView txtTenTV, txtNamSinh;
     SearchView searchView;
+    int ngay, thang, nam;
+    android.icu.text.SimpleDateFormat  sdf = new SimpleDateFormat("dd/MM/yyyy");
     public Fragment_ThanhVien() {
         // Required empty public constructor
     }
@@ -140,12 +147,24 @@ public class Fragment_ThanhVien extends Fragment {
 
         txtTenTV = view.findViewById(R.id.txtTenTV);
         txtNamSinh = view.findViewById(R.id.txtNamSinh);
+
+        txtNamSinh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar lich = Calendar.getInstance();
+                ngay = lich.get(Calendar.DAY_OF_MONTH);
+                thang = lich.get(Calendar.MONTH);
+                nam = lich.get(Calendar.YEAR);
+                DatePickerDialog d = new DatePickerDialog(getContext(), 0, date, nam, thang, ngay);
+                d.show();
+            }
+        });
+
         view.findViewById(R.id.btnThem_TV).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tenTV = txtTenTV.getText().toString();
-                String namSinh = txtNamSinh.getText().toString();
-
+                String tenTV = txtTenTV.getText().toString().trim();
+                String namSinh = txtNamSinh.getText().toString().trim();
                 if(tenTV.isEmpty() || namSinh.isEmpty()) {
                     Toast.makeText(getContext(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else {
@@ -168,4 +187,14 @@ public class Fragment_ThanhVien extends Fragment {
             }
         });
     }
+    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            ngay = dayOfMonth;
+            thang = month;
+            nam = year;
+            android.icu.util.GregorianCalendar gregorianCalendar = new GregorianCalendar( nam, thang, ngay);
+            txtNamSinh.setText(sdf.format(gregorianCalendar.getTime()));
+        }
+    };
 }

@@ -2,14 +2,18 @@ package com.example.duanmau.adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.GregorianCalendar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +29,7 @@ import com.example.duanmau.model.ThanhVien;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class adapterThanhVien extends RecyclerView.Adapter<adapterThanhVien.ViewHolder> {
     private final Context context;
@@ -32,6 +37,8 @@ public class adapterThanhVien extends RecyclerView.Adapter<adapterThanhVien.View
     daoThanhVien daoThanhVien;
     ThanhVien tv;
     TextView txtTenTV, txtNamSinh, lblMaTV;
+    int ngay, thang, nam;
+    android.icu.text.SimpleDateFormat  sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     public adapterThanhVien(Context context, ArrayList<ThanhVien> list) {
         this.context = context;
@@ -137,6 +144,17 @@ public class adapterThanhVien extends RecyclerView.Adapter<adapterThanhVien.View
         txtTenTV.setText(tv.getTenTV());
         txtNamSinh.setText(tv.getNamSinh());
         lblMaTV.setText("Mã thành viên: " + tv.getMaTV());
+        txtNamSinh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar lich = Calendar.getInstance();
+                ngay = lich.get(Calendar.DAY_OF_MONTH);
+                thang = lich.get(Calendar.MONTH);
+                nam = lich.get(Calendar.YEAR);
+                DatePickerDialog d = new DatePickerDialog(context, 0, date, nam, thang, ngay);
+                d.show();
+            }
+        });
         view.findViewById(R.id.btnThem_TV).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,4 +185,14 @@ public class adapterThanhVien extends RecyclerView.Adapter<adapterThanhVien.View
             }
         });
     }
+    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            ngay = dayOfMonth;
+            thang = month;
+            nam = year;
+            android.icu.util.GregorianCalendar gregorianCalendar = new GregorianCalendar( nam, thang, ngay);
+            txtNamSinh.setText(sdf.format(gregorianCalendar.getTime()));
+        }
+    };
 }

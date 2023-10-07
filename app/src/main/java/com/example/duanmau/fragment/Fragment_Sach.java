@@ -166,8 +166,8 @@ public class Fragment_Sach extends Fragment {
         view.findViewById(R.id.btnThem_S).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tenSach = txtTenSach.getText().toString();
-                String giaThue = txtGiaThue.getText().toString();
+                String tenSach = txtTenSach.getText().toString().trim();
+                String giaThue = txtGiaThue.getText().toString().trim();
 
                 if(tenSach.isEmpty() || giaThue.isEmpty() || loaiSachArr.isEmpty()) {
                     Toast.makeText(getContext(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
