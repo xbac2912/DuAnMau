@@ -120,7 +120,7 @@ public class adapterPhieuMuon extends RecyclerView.Adapter<adapterPhieuMuon.View
         builder.setIcon(R.drawable.warning);
         builder.setTitle("Warning");
         builder.setMessage("Bạn có chắc chắn muốn xóa không ?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (daoPhieuMuon.delete(index.getMaPhieuMuon())) {
@@ -133,7 +133,7 @@ public class adapterPhieuMuon extends RecyclerView.Adapter<adapterPhieuMuon.View
                 }
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -170,6 +170,8 @@ public class adapterPhieuMuon extends RecyclerView.Adapter<adapterPhieuMuon.View
             tienThueArr.add(String.valueOf(x.getGiaThue()));
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, sachArr);
+        spnSach.setEnabled(false);
+        spnSach.setClickable(false);
         spnSach.setAdapter(adapter);
         for (int i = 0; i < sachArr.size(); i++) {
             if (sachArr.get(i).equals(daoSach.getTenS(index.getMaSach()))) {
@@ -196,6 +198,8 @@ public class adapterPhieuMuon extends RecyclerView.Adapter<adapterPhieuMuon.View
             thanhVienArr.add(x.getTenTV());
         }
         ArrayAdapter<String> adaptertv = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, thanhVienArr);
+        spnThanhVien.setEnabled(false);
+        spnThanhVien.setClickable(false);
         spnThanhVien.setAdapter(adaptertv);
 
         for (int i = 0; i < thanhVienArr.size(); i++) {

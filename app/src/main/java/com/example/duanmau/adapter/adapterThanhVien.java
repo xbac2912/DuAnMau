@@ -98,8 +98,8 @@ public class adapterThanhVien extends RecyclerView.Adapter<adapterThanhVien.View
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setIcon(R.drawable.warning);
         builder.setTitle("Warning");
-        builder.setMessage("Bạn có chắc chắn muốn xóa không ?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setMessage("Bạn có chắc chắn muốn xóa không?");
+        builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (daoThanhVien.delete(tv.getMaTV())) {
@@ -112,7 +112,7 @@ public class adapterThanhVien extends RecyclerView.Adapter<adapterThanhVien.View
                 }
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

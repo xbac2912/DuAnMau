@@ -104,7 +104,7 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.ViewHolder>{
         builder.setIcon(R.drawable.warning);
         builder.setTitle("Warning");
         builder.setMessage("Bạn có chắc chắn muốn xóa không ?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (daoSach.delete(indexSach.getMaSach())) {
@@ -117,7 +117,7 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.ViewHolder>{
                 }
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

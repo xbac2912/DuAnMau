@@ -88,7 +88,7 @@ public class adapterLoaiSach extends RecyclerView.Adapter<adapterLoaiSach.ViewHo
         builder.setIcon(R.drawable.warning);
         builder.setTitle("Warning");
         builder.setMessage("Bạn có chắc chắn muốn xóa không ?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (daoLoaiSach.delete(indexLoaiSach.getMaLoai())) {
@@ -101,7 +101,7 @@ public class adapterLoaiSach extends RecyclerView.Adapter<adapterLoaiSach.ViewHo
                 }
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
