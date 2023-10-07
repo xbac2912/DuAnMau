@@ -79,6 +79,7 @@ public class Fragment_DoanhThu extends Fragment {
         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         Description description = new Description();
         description.setText("Biểu đồ thống kê doanh thu trong năm " + Calendar.getInstance().get(Calendar.YEAR));
+        description.setTextSize(15);
         barChart.setDescription(description);
         BarData barData = new BarData(barDataSet);
         barChart.setData(barData);
