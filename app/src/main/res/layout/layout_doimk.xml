@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/background_dialog_1"
         android:layout_margin="10dp">
         <TextView
             android:layout_width="match_parent"
@@ -19,48 +18,89 @@
             android:textStyle="bold"
             android:textSize="20sp"
             android:padding="10dp"
-            android:layout_marginBottom="20dp"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/background_dialog_2"/>
-        <EditText
-            android:id="@+id/txtMatKhauCu"
+            android:textColor="#8692F7"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputPwCu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="Nhập mật khẩu cũ"
-            android:layout_marginHorizontal="15dp"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="5dp"
-            android:background="@drawable/background_input"
-            android:padding="10dp"/>
-        <EditText
-            android:id="@+id/txtMatKhauMoi"
+            app:hintTextColor="#000000"
+            android:hint="Mật khẩu cũ"
+            app:endIconMode="password_toggle"
+            app:errorTextColor="#FF0000"
+            app:boxStrokeColor="@color/black"
+            android:textColorHint="#80000000"
+            app:endIconDrawable="@drawable/password_icon"
+            app:startIconDrawable="@drawable/lock_matkhau">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtMatKhauCu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputPw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="Nhập mật khẩu mới"
-            android:layout_marginHorizontal="15dp"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="5dp"
-            android:background="@drawable/background_input"
-            android:padding="10dp"/>
-        <EditText
-            android:id="@+id/txtMatKhauXacNhan"
+            app:hintTextColor="#000000"
+            android:hint="Mật khẩu mới"
+            app:endIconMode="password_toggle"
+            app:errorTextColor="#FF0000"
+            app:boxStrokeColor="@color/black"
+            android:textColorHint="#80000000"
+            app:endIconDrawable="@drawable/password_icon"
+            app:startIconDrawable="@drawable/lock_matkhau">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtMatKhauMoi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputPw2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            app:hintTextColor="#000000"
             android:hint="Xác nhận mật khẩu"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="5dp"
-            android:background="@drawable/background_input"
-            android:padding="10dp"/>
-        <Button
-            android:id="@+id/btnSubmit"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:text="Submit"
-            android:textColor="@color/white"
-            android:background="@drawable/btn_add"
-            android:textStyle="bold"
-            android:layout_margin="20dp"
-            android:layout_gravity="center"/>
+            app:endIconMode="password_toggle"
+            app:errorTextColor="#FF0000"
+            app:boxStrokeColor="@color/black"
+            android:textColorHint="#80000000"
+            app:endIconDrawable="@drawable/password_icon"
+            app:startIconDrawable="@drawable/lock_matkhau">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtMatKhauXacNhan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="end"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btnHuy"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="Hủy"
+                android:textColor="#8692F7"
+                android:background="#00000000"
+                android:textStyle="bold" />
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đổi"
+                android:textColor="#8692F7"
+                android:background="#00000000"
+                android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

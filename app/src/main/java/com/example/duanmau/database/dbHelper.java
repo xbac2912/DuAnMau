@@ -58,7 +58,7 @@ public class dbHelper extends SQLiteOpenHelper {
                 "ngayMuon text not null, " +
                 "traSach integer not null)";
         db.execSQL(tb_PhieuMuon);
-        String data_PhieuMuon = "INSERT INTO tb_PhieuMuon VALUES ( 1, 'admin', 1, 1, 2000, '20/10/2019', 1), ( 2, 'admin', 2, 2, 2000, '20/10/2019', 1), ( 3, 'admin', 3, 3, 2000, '20/10/2019', 1)";
+        String data_PhieuMuon = "INSERT INTO tb_PhieuMuon VALUES ( 1, 'admin', 1, 1, 1000, '2023/07/20', 1), ( 2, 'admin', 2, 2, 1000, '2023/05/26', 1), ( 3, 'admin', 3, 3, 2000, '2023/08/20', 1)";
         db.execSQL(data_PhieuMuon);
     }
 

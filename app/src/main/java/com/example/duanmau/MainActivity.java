@@ -153,14 +153,19 @@ public class MainActivity extends AppCompatActivity {
         View view = getLayoutInflater().inflate(R.layout.layout_them_thuthu, null);
         builder.setView(view);
         Dialog dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
-        EditText txtMaTT = view.findViewById(R.id.txtMaTT);
-        EditText txtTenTT = view.findViewById(R.id.txtTenTT);
-        EditText txtMatKhau = view.findViewById(R.id.txtMatKhau);
-        EditText txtMatKhau_2 = view.findViewById(R.id.txtMatKhau_2);
-
+        TextInputEditText txtMaTT = view.findViewById(R.id.txtMaTT);
+        TextInputEditText txtTenTT = view.findViewById(R.id.txtTenTT);
+        TextInputEditText txtMatKhau = view.findViewById(R.id.txtMatKhau);
+        TextInputEditText  txtMatKhau_2 = view.findViewById(R.id.txtMatKhau_2);
+        view.findViewById(R.id.btnHuy_TT).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
         view.findViewById(R.id.btnThem_TT).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,14 +197,19 @@ public class MainActivity extends AppCompatActivity {
         View view = getLayoutInflater().inflate(R.layout.layout_doimk, null);
         builder.setView(view);
         Dialog dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
-        EditText txtMatKhauCu = view.findViewById(R.id.txtMatKhauCu);
-        EditText txtMatKhauMoi = view.findViewById(R.id.txtMatKhauMoi);
-        EditText txtMatKhauXacNhan = view.findViewById(R.id.txtMatKhauXacNhan);
+        TextInputEditText txtMatKhauCu = view.findViewById(R.id.txtMatKhauCu);
+        TextInputEditText txtMatKhauMoi = view.findViewById(R.id.txtMatKhauMoi);
+        TextInputEditText txtMatKhauXacNhan = view.findViewById(R.id.txtMatKhauXacNhan);
 
-
+        view.findViewById(R.id.btnHuy).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
         view.findViewById(R.id.btnSubmit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -213,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     if (daoThuThu.checklogin( maTT, matKhauCu)) {
                         if (matKhauMoi.equals(matKhauXacNhan)) {
+                            dialog.dismiss();
                             openDialog_XacNhan();
                         } else {
                             Toast.makeText(MainActivity.this, "Mật khẩu mới không khớp nhau", Toast.LENGTH_SHORT).show();

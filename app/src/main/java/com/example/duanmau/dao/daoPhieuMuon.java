@@ -145,33 +145,21 @@ public class daoPhieuMuon {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         try {
             Cursor cursor = db.rawQuery("SELECT maSach FROM tb_PhieuMuon WHERE tb_PhieuMuon.maSach = ?", new String[] {String.valueOf(maSach)});
-            if (cursor.getCount() > 0) {
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    rowS = cursor.getInt(0);
-                    cursor.moveToNext();
-                }
-            }
+            rowS = cursor.getCount();
         } catch (Exception e) {
             Log.i(TAG, "Lỗi" + e);
         }
-        return (rowS < 0) ? true : false;
+        return (rowS <= 0) ? true : false;
     }
     int rowTV;
     public boolean checkMaTV(int maTV) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         try {
             Cursor cursor = db.rawQuery("SELECT maTV FROM tb_PhieuMuon WHERE tb_PhieuMuon.maTV = ?", new String[] {String.valueOf(maTV)});
-            if (cursor.getCount() > 0) {
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    rowTV = cursor.getInt(0);
-                    cursor.moveToNext();
-                }
-            }
+            rowTV = cursor.getCount();
         } catch (Exception e) {
             Log.i(TAG, "Lỗi" + e);
         }
-        return (rowTV < 0) ? true : false;
+        return (rowTV <= 0) ? true : false;
     }
 }

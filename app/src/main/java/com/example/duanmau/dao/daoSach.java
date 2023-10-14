@@ -141,20 +141,15 @@ public class daoSach {
         }
         return tienThue;
     }
+    int rowML;
     public boolean checkMaLoai(int maLoai) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         try {
             Cursor cursor = db.rawQuery("SELECT maLoai FROM tb_Sach WHERE tb_Sach.maLoai = ?", new String[] {String.valueOf(maLoai)});
-            if (cursor.getCount() > 0) {
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    row = cursor.getInt(0);
-                    cursor.moveToNext();
-                }
-            }
+            rowML = cursor.getCount();
         } catch (Exception e) {
             Log.i(TAG, "Lỗi" + e);
         }
-        return (row < 0) ? true : false;
+        return (rowML <= 0) ? true : false;
     }
 }
