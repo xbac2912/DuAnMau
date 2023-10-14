@@ -23,6 +23,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duanmau.R;
+import com.example.duanmau.dao.daoPhieuMuon;
 import com.example.duanmau.dao.daoThanhVien;
 import com.example.duanmau.model.ThanhVien;
 
@@ -35,6 +36,7 @@ public class adapterThanhVien extends RecyclerView.Adapter<adapterThanhVien.View
     private final Context context;
     private final ArrayList<ThanhVien> list;
     daoThanhVien daoThanhVien;
+    daoPhieuMuon daoPhieuMuon;
     ThanhVien tv;
     TextView txtTenTV, txtNamSinh, lblMaTV;
     int ngay, thang, nam;
@@ -44,6 +46,7 @@ public class adapterThanhVien extends RecyclerView.Adapter<adapterThanhVien.View
         this.context = context;
         this.list = list;
         daoThanhVien = new daoThanhVien(context);
+        daoPhieuMuon = new daoPhieuMuon(context);
     }
 
     @NonNull
@@ -109,14 +112,19 @@ public class adapterThanhVien extends RecyclerView.Adapter<adapterThanhVien.View
         builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (daoThanhVien.delete(tv.getMaTV())) {
-                    list.clear();
-                    list.addAll(daoThanhVien.selectAll());
-                    notifyDataSetChanged();
-                    Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                if (daoPhieuMuon.checkMaTV(tv.getMaTV())) {
+                    if (daoThanhVien.delete(tv.getMaTV())) {
+                        list.clear();
+                        list.addAll(daoThanhVien.selectAll());
+                        notifyDataSetChanged();
+                        Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(context, "XÓa thất bại", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Thành viên đang thuê sách không thể xóa", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
         builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {

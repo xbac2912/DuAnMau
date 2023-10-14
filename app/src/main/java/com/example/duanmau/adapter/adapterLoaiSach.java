@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duanmau.R;
 import com.example.duanmau.dao.daoLoaiSach;
+import com.example.duanmau.dao.daoSach;
 import com.example.duanmau.model.LoaiSach;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class adapterLoaiSach extends RecyclerView.Adapter<adapterLoaiSach.ViewHo
     private final ArrayList<LoaiSach> list;
     private final Context context;
     daoLoaiSach daoLoaiSach;
+    daoSach daoSach;
     LoaiSach indexLoaiSach;
     TextView txtTenLoai, lblLoaiSach;
 
@@ -37,6 +39,7 @@ public class adapterLoaiSach extends RecyclerView.Adapter<adapterLoaiSach.ViewHo
         this.list = list;
         this.context = context;
         daoLoaiSach = new daoLoaiSach(context);
+        daoSach = new daoSach(context);
     }
 
     @NonNull
@@ -91,13 +94,17 @@ public class adapterLoaiSach extends RecyclerView.Adapter<adapterLoaiSach.ViewHo
         builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (daoLoaiSach.delete(indexLoaiSach.getMaLoai())) {
-                    list.clear();
-                    list.addAll(daoLoaiSach.selectAll());
-                    notifyDataSetChanged();
-                    Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                if (daoSach.checkMaLoai(indexLoaiSach.getMaLoai())) {
+                    if (daoLoaiSach.delete(indexLoaiSach.getMaLoai())) {
+                        list.clear();
+                        list.addAll(daoLoaiSach.selectAll());
+                        notifyDataSetChanged();
+                        Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "XÓa thất bại", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(context, "XÓa thất bại", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Loại sách đang được sử dụng không thể xóa", Toast.LENGTH_SHORT).show();
                 }
             }
         });

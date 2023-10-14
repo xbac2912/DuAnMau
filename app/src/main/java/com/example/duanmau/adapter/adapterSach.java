@@ -49,6 +49,7 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.ViewHolder>{
         this.list = list;
         daoSach = new daoSach(context);
         daoLoaiSach = new daoLoaiSach(context);
+        daoPhieuMuon = new daoPhieuMuon(context);
     }
 
     @NonNull
@@ -107,14 +108,19 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.ViewHolder>{
         builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (daoSach.delete(indexSach.getMaSach())) {
-                    list.clear();
-                    list.addAll(daoSach.selectAll());
-                    notifyDataSetChanged();
-                    Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                if (daoPhieuMuon.checkMaSach(indexSach.getMaSach())) {
+                    if (daoSach.delete(indexSach.getMaSach())) {
+                        list.clear();
+                        list.addAll(daoSach.selectAll());
+                        notifyDataSetChanged();
+                        Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(context, "XÓa thất bại", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Sách đang được thuê không thể xóa", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
         builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {

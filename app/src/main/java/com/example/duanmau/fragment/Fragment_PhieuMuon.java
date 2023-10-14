@@ -233,9 +233,9 @@ public class Fragment_PhieuMuon extends Fragment {
         view.findViewById(R.id.btnThem_PM).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String maTT = mainActivity.getMaTT();
-                String ngayThue = txtNgayThue.getText().toString();
-                String tienThue = txtTienThue.getText().toString();
+                String maTT = mainActivity.getMaTT().trim();
+                String ngayThue = txtNgayThue.getText().toString().trim();
+                String tienThue = txtTienThue.getText().toString().trim();
                 if (thanhVienArr.isEmpty() || sachArr.isEmpty()) {
                     Toast.makeText(getContext(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else {

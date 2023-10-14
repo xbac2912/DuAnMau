@@ -37,6 +37,8 @@ public class dbHelper extends SQLiteOpenHelper {
                 "maLoai integer primary key autoincrement, " +
                 "tenLoai text not null)";
         db.execSQL(tb_LoaiSach);
+        String data_LoaiSach = "INSERT INTO tb_LoaiSach VALUES (1, 'CNTT'), (2, 'Truyện'), (3, 'Làm giàu')";
+        db.execSQL(data_LoaiSach);
         // Bảng sách
         String tb_Sach= "CREATE TABLE tb_Sach(" +
                 "maSach integer primary key autoincrement, " +
@@ -44,6 +46,8 @@ public class dbHelper extends SQLiteOpenHelper {
                 "giaThue integer not null, " +
                 "maLoai integer REFERENCES tb_LoaiSach(maLoai))";
         db.execSQL(tb_Sach);
+        String data_Sach = "INSERT INTO tb_Sach VALUES (1, 'Java cơ bản', 1000, 1), (2, 'Doreamon', 1000, 2), (3, 'Kiếm tiền tiktok', 2000, 3)";
+        db.execSQL(data_Sach);
         // Bảng Phiếu Mượn
         String tb_PhieuMuon= "CREATE TABLE tb_PhieuMuon(" +
                 "maPhieuMuon integer primary key autoincrement, " +
@@ -54,8 +58,8 @@ public class dbHelper extends SQLiteOpenHelper {
                 "ngayMuon text not null, " +
                 "traSach integer not null)";
         db.execSQL(tb_PhieuMuon);
-//        String data_PhieuMuon = "INSERT INTO tb_PhieuMuon VALUES ( 1, 'TT01', 1, 1, 2000, '20/10/2019', 1)";
-//        db.execSQL(data_PhieuMuon);
+        String data_PhieuMuon = "INSERT INTO tb_PhieuMuon VALUES ( 1, 'admin', 1, 1, 2000, '20/10/2019', 1), ( 2, 'admin', 2, 2, 2000, '20/10/2019', 1), ( 3, 'admin', 3, 3, 2000, '20/10/2019', 1)";
+        db.execSQL(data_PhieuMuon);
     }
 
     @Override

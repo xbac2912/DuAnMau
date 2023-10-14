@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigationView);
         daoThuThu = new daoThuThu(this);
@@ -164,10 +164,10 @@ public class MainActivity extends AppCompatActivity {
         view.findViewById(R.id.btnThem_TT).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String maTT = txtMaTT.getText().toString();
-                String tenTT = txtTenTT.getText().toString();
-                String matKhau = txtMatKhau.getText().toString();
-                String matKhau2 = txtMatKhau_2.getText().toString();
+                String maTT = txtMaTT.getText().toString().trim();
+                String tenTT = txtTenTT.getText().toString().trim();
+                String matKhau = txtMatKhau.getText().toString().trim();
+                String matKhau2 = txtMatKhau_2.getText().toString().trim();
 
                 if (maTT.isEmpty() || tenTT.isEmpty() || matKhau.isEmpty() || matKhau2.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();

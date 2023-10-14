@@ -38,15 +38,13 @@ public class log_in extends AppCompatActivity {
 
         daoThuThu = new daoThuThu(this);
         Button btnDangNhap = findViewById(R.id.btnDangNhap);
-//        txtTaiKhoan = findViewById(R.id.txtTaiKhoan);
-//        txtMatKhau = findViewById(R.id.txtMatKhau);
         chkLuuMatKhau = findViewById(R.id.chkLuuMatKhau);
         textInputLayoutTK = findViewById(R.id.textInputUser);
         textInputLayoutMK = findViewById(R.id.textInputPw);
         txtTaiKhoan = findViewById(R.id.txtTaiKhoan);
         txtMatKhau = findViewById(R.id.txtMatKhau);
-//        txtTaiKhoan.setText("");
-//        txtMatKhau.setText("");
+        chkMatKhau();
+
         txtTaiKhoan.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -55,17 +53,14 @@ public class log_in extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                if (!txtTaiKhoan.getText().toString().isEmpty()) {
+                    textInputLayoutTK.setError(null);
+                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                String tk = s.toString().trim();
-                if (tk.isEmpty()) {
-                    textInputLayoutTK.setError("Vui lòng nhập tài khoản");
-                } else {
-                    textInputLayoutTK.setError("");
-                }
+
             }
         });
         txtMatKhau.addTextChangedListener(new TextWatcher() {
@@ -76,37 +71,47 @@ public class log_in extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                if (!txtMatKhau.getText().toString().isEmpty()) {
+                    textInputLayoutMK.setError(null);
+                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                String mk = s.toString().trim();
-                if (mk.isEmpty()) {
-                    textInputLayoutMK.setError("Vui lòng nhập mật khẩu");
-                } else {
-                    textInputLayoutMK.setError("");
-                    btnDangNhap.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            String username = txtTaiKhoan.getText().toString();
-                            String password = txtMatKhau.getText().toString();
-                            if (daoThuThu.checklogin( username, password)) {
-                                Toast.makeText(log_in.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                                luuMatKhau( username, password, chkLuuMatKhau.isChecked());
-                                Intent intent = new Intent(log_in.this, MainActivity.class);
-                                intent.putExtra("maTT", username);
-                                startActivity(intent);
-                            } else {
-                                textInputLayoutTK.setError(" ");
-                                textInputLayoutMK.setError("Tài khoản hoặc mật khẩu không chính xác");
-                            }
-                        }
-                    });
-                }
+
             }
         });
-        chkMatKhau();
+        btnDangNhap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validateDangNhap();
+            }
+        });
+    }
+    private void validateDangNhap() {
+        String username = txtTaiKhoan.getText().toString().trim();
+        String password = txtMatKhau.getText().toString().trim();
+        if (username.isEmpty() || password.isEmpty()) {
+            textInputLayoutTK.setError(null);
+            textInputLayoutMK.setError(null);
+            if (username.isEmpty()) {
+                textInputLayoutTK.setError("* Vui lòng nhập tài khoản");
+            } else if (password.isEmpty()) {
+                textInputLayoutMK.setError("* Vui lòng nhập mật khẩu");
+            }
+        } else {
+            textInputLayoutTK.setError(null);
+            textInputLayoutMK.setError(null);
+            if (daoThuThu.checklogin( username, password)) {
+                Toast.makeText(log_in.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                luuMatKhau( username, password, chkLuuMatKhau.isChecked());
+                Intent intent = new Intent(log_in.this, MainActivity.class);
+                intent.putExtra("maTT", username);
+                startActivity(intent);
+            } else {
+                textInputLayoutTK.setError("Tài khoản hoặc mật khẩu không chính xác");
+            }
+        }
     }
     public void luuMatKhau(String user, String pass, boolean status) {
         SharedPreferences sharedPreferences = getSharedPreferences("LuuTaiKhoan.txt", MODE_PRIVATE);

@@ -122,8 +122,8 @@ public class Fragment_DoanhThu extends Fragment {
         btnDoanhThu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tuNgay = txtTuNgay.getText().toString();
-                String denNgay = txtDenNgay.getText().toString();
+                String tuNgay = txtTuNgay.getText().toString().trim();
+                String denNgay = txtDenNgay.getText().toString().trim();
                 daoPhieuMuon daoPhieuMuon = new daoPhieuMuon(getContext());
                 if (tuNgay.isEmpty() || denNgay.isEmpty()) {
                     Toast.makeText(getContext(), "Vui lòng chọn ngày", Toast.LENGTH_SHORT).show();
