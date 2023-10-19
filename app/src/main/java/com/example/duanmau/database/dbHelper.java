@@ -28,9 +28,10 @@ public class dbHelper extends SQLiteOpenHelper {
         String tb_ThanhVien= "CREATE TABLE tb_ThanhVien(" +
                 "maTV integer primary key autoincrement, " +
                 "tenTV text not null, " +
-                "namSinh text not null)";
+                "namSinh text not null, "+
+                "cccd text not null)";
         db.execSQL(tb_ThanhVien);
-        String data_ThanhVien = "INSERT INTO tb_ThanhVien VALUES ( 1, 'Xuân Bắc', '29/12/2004'), ( 2, 'Ngọc Hải', '19/09/2004'), ( 3, 'Tân Cảnh', '13/03/1998')";
+        String data_ThanhVien = "INSERT INTO tb_ThanhVien VALUES ( 1, 'Xuân Bắc', '29/12/2004', '001204019644'), ( 2, 'Ngọc Hải', '19/09/2004', '001204019644'), ( 3, 'Tân Cảnh', '13/03/1998', '001204019644')";
         db.execSQL(data_ThanhVien);
         // Bảng loai sách
         String tb_LoaiSach= "CREATE TABLE tb_LoaiSach(" +
@@ -44,9 +45,10 @@ public class dbHelper extends SQLiteOpenHelper {
                 "maSach integer primary key autoincrement, " +
                 "tenSach text not null, " +
                 "giaThue integer not null, " +
+                "namXuatBan integer not null, " +
                 "maLoai integer REFERENCES tb_LoaiSach(maLoai))";
         db.execSQL(tb_Sach);
-        String data_Sach = "INSERT INTO tb_Sach VALUES (1, 'Java cơ bản', 1000, 1), (2, 'Doreamon', 1000, 2), (3, 'Kiếm tiền tiktok', 2000, 3)";
+        String data_Sach = "INSERT INTO tb_Sach VALUES (1, 'Java cơ bản', 1000, 2000, 1), (2, 'Doreamon', 1000, 2014, 2), (3, 'Kiếm tiền tiktok', 2000, 2011,3)";
         db.execSQL(data_Sach);
         // Bảng Phiếu Mượn
         String tb_PhieuMuon= "CREATE TABLE tb_PhieuMuon(" +

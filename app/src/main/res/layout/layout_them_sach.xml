@@ -51,6 +51,15 @@
             android:layout_marginHorizontal="15dp"
             android:layout_marginVertical="5dp"
             android:padding="10dp"/>
+        <EditText
+            android:id="@+id/txtNamXuatBan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập năm xuất bản"
+            android:drawableStart="@drawable/wallet"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="5dp"
+            android:padding="10dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

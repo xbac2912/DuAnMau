@@ -39,6 +39,15 @@
             android:focusable="false"
             android:cursorVisible="false"
             android:inputType="none"
+            android:drawableStart="@drawable/namsinh"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="5dp"
+            android:padding="10dp"/>
+        <EditText
+            android:id="@+id/txtCCCD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập cccd"
             android:drawableStart="@drawable/id_card"
             android:layout_marginHorizontal="15dp"
             android:layout_marginVertical="5dp"

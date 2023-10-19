@@ -26,6 +26,7 @@ import com.example.duanmau.R;
 import com.example.duanmau.dao.daoLoaiSach;
 import com.example.duanmau.dao.daoPhieuMuon;
 import com.example.duanmau.dao.daoSach;
+import com.example.duanmau.fragment.Fragment_Sach;
 import com.example.duanmau.model.LoaiSach;
 import com.example.duanmau.model.Sach;
 
@@ -41,7 +42,7 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.ViewHolder>{
     daoPhieuMuon daoPhieuMuon;
     Sach indexSach;
     int index;
-    EditText txtTenSach, txtGiaThue;
+    EditText txtTenSach, txtGiaThue, txtNamXB;
     TextView lblMaSach;
     Spinner spnLoaiSach;
     public adapterSach(Context context, ArrayList<Sach> list) {
@@ -66,6 +67,7 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.ViewHolder>{
         holder.lblTenSach.setText(list.get(position).getTenSach());
         holder.lblGiaThue.setText(list.get(position).getGiaThue() + " VNĐ");
         holder.lblLoaiSach.setText(String.valueOf(list.get(position).getTenLoai()));
+        holder.lblNamXB.setText(String.valueOf(list.get(position).getNamXB()));
         holder.btnXoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +90,7 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.ViewHolder>{
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView lblMaSach, lblTenSach, lblGiaThue, lblLoaiSach;
+        TextView lblMaSach, lblTenSach, lblGiaThue, lblLoaiSach, lblNamXB;
         ImageButton btnXoa, btnUpdate;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,6 +98,7 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.ViewHolder>{
             lblTenSach = itemView.findViewById(R.id.lblTenSach);
             lblGiaThue = itemView.findViewById(R.id.lblGiaThue);
             lblLoaiSach = itemView.findViewById(R.id.lblLoaiSach);
+            lblNamXB = itemView.findViewById(R.id.lblNamXuatBan);
             btnXoa = itemView.findViewById(R.id.btnXoa);
             btnUpdate = itemView.findViewById(R.id.btnUpdate);
         }
@@ -144,6 +147,7 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.ViewHolder>{
         lblMaSach = view.findViewById(R.id.lblMaSach);
         txtTenSach = view.findViewById(R.id.txtTenSach_Up);
         txtGiaThue = view.findViewById(R.id.txtGiaThue_Up);
+        txtNamXB = view.findViewById(R.id.txtNamXuatBan_Up);
         spnLoaiSach = view.findViewById(R.id.spnLoaiSach_Up);
 
         lblMaSach.setText("Mã sách: " + indexSach.getMaSach());
@@ -164,6 +168,7 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.ViewHolder>{
         }
         txtTenSach.setText(String.valueOf(indexSach.getTenSach()));
         txtGiaThue.setText(String.valueOf(indexSach.getGiaThue()));
+        txtNamXB.setText(String.valueOf(indexSach.getNamXB()));
         spnLoaiSach.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -175,35 +180,41 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.ViewHolder>{
 
             }
         });
-
         view.findViewById(R.id.btnUpdate_S).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tenSach = txtTenSach.getText().toString();
-                String giaThue = txtGiaThue.getText().toString();
+                String tenSach = txtTenSach.getText().toString().trim();
+                String giaThue = txtGiaThue.getText().toString().trim();
+                String namXB = txtNamXB.getText().toString().trim();
 
-                indexSach.setTenSach(tenSach);
-                indexSach.setGiaThue(Integer.valueOf(giaThue));
-                indexSach.setMaLoai(index);
-
-                if(tenSach.isEmpty() || giaThue.isEmpty()) {
+                if(tenSach.isEmpty() || giaThue.isEmpty() || namXB.isEmpty()) {
                     Toast.makeText(context, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else {
                     if(giaThue.matches("\\d+") == false) {
                         Toast.makeText(context, "Giá thuê sai định dạng", Toast.LENGTH_SHORT).show();
                     } else if(Integer.valueOf(giaThue) < 0) {
                         Toast.makeText(context, "Giá thuê phải lớn hơn 0", Toast.LENGTH_SHORT).show();
-                    }
-                    else if(daoSach.update(indexSach)) {
-                        list.clear();
-                        list.addAll(daoSach.selectAll());
-                        daoPhieuMuon = new daoPhieuMuon(context);
-                        daoPhieuMuon.selectAll();
-                        dialog.dismiss();
-                        notifyDataSetChanged();
-                        Toast.makeText(context, "Update thành công", Toast.LENGTH_SHORT).show();
+                    } else if (namXB.length() != 4) {
+                        Toast.makeText(context, "Năm xuất bản sai định dạng ", Toast.LENGTH_SHORT).show();
+                    } else if (namXB.matches("\\d+") == false) {
+                        Toast.makeText(context, "Năm xuất bản phải là số", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(context, "Update thất bại", Toast.LENGTH_SHORT).show();
+                        indexSach.setTenSach(tenSach);
+                        indexSach.setGiaThue(Integer.valueOf(giaThue));
+                        indexSach.setMaLoai(index);
+                        indexSach.setNamXB(Integer.valueOf(namXB));
+
+                        if(daoSach.update(indexSach)) {
+                            list.clear();
+                            list.addAll(daoSach.selectAll());
+                            daoPhieuMuon = new daoPhieuMuon(context);
+                            daoPhieuMuon.selectAll();
+                            dialog.dismiss();
+                            notifyDataSetChanged();
+                            Toast.makeText(context, "Update thành công", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Update thất bại", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }

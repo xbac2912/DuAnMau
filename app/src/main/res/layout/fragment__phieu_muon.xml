@@ -18,7 +18,8 @@
             android:layout_width="379dp"
             android:layout_height="match_parent"
             android:paddingHorizontal="5dp"
-            app:queryHint="Tìm kiếm" />
+            app:iconifiedByDefault="false"
+            app:queryHint="Tìm kiếm ..." />
     </androidx.cardview.widget.CardView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvPhieuMuon"

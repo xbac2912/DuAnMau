@@ -47,7 +47,7 @@
             app:errorTextColor="#FF0000"
             app:hintTextColor="#000000"
             android:textColorHint="#80000000"
-            app:startIconDrawable="@drawable/user_taikhoan">
+            app:startIconDrawable="@drawable/name">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtTenTT"
                 android:layout_width="match_parent"

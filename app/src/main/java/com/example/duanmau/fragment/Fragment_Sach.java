@@ -1,6 +1,7 @@
 package com.example.duanmau.fragment;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import androidx.appcompat.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.duanmau.R;
@@ -29,6 +31,10 @@ import com.example.duanmau.model.Sach;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Fragment_Sach extends Fragment {
     RecyclerView rcvSach;
@@ -38,7 +44,8 @@ public class Fragment_Sach extends Fragment {
     daoSach daoSach;
     daoLoaiSach daoLoaiSach;
     adapterSach adapterSach;
-    EditText txtTenSach, txtGiaThue;
+    Spinner spnSapXep;
+    EditText txtTenSach, txtGiaThue, txtNamXB;
     Spinner spnLoaiSach;
     int index;
     SearchView searchView;
@@ -54,6 +61,7 @@ public class Fragment_Sach extends Fragment {
         rcvSach = view.findViewById(R.id.rcvSach);
         flt_btn_Them = view.findViewById(R.id.flt_btn_Them);
         searchView = view.findViewById(R.id.searchView);
+        spnSapXep = view.findViewById(R.id.spnSapXep);
         daoSach = new daoSach(getContext());
         daoLoaiSach = new daoLoaiSach(getContext());
         list = daoSach.selectAll();
@@ -70,6 +78,36 @@ public class Fragment_Sach extends Fragment {
                 OpenDialog_Them();
             }
         });
+        //
+        ArrayList<String> sapXepArr = new ArrayList<>();
+        sapXepArr.add("-- Mặc định --");
+        sapXepArr.add("Giá tăng dần");
+        sapXepArr.add("Giá giảm dần");
+        sapXepArr.add("Năm xuất bản");
+        ArrayAdapter<String> adapterSX = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, sapXepArr);
+        spnSapXep.setAdapter(adapterSX);
+        spnSapXep.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    list = daoSach.selectAll();
+                    adapterSach = new adapterSach(getContext(), list);
+                    rcvSach.setAdapter(adapterSach);
+                } else if (position == 1) {
+                    sapXepTang();
+                } else if (position == 2) {
+                    sapXepGiam();
+                } else if (position == 3) {
+                    sapXepNam();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        //
         //
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -133,6 +171,60 @@ public class Fragment_Sach extends Fragment {
 
         return view;
     }
+    public void sapXepTang() {
+        Collections.sort(list, new Comparator<Sach>() {
+            @Override
+            public int compare(Sach o1, Sach o2) {
+                if (o1.getGiaThue() > o2.getGiaThue()) {
+                    return 1;
+                } else {
+                    if (o1.getGiaThue() == o2.getGiaThue()) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                }
+            }
+        });
+        adapterSach = new adapterSach(getContext(), list);
+        rcvSach.setAdapter(adapterSach);
+    }
+    public void sapXepGiam() {
+        Collections.sort(list, new Comparator<Sach>() {
+            @Override
+            public int compare(Sach o1, Sach o2) {
+                if (o1.getGiaThue() > o2.getGiaThue()) {
+                    return -1;
+                } else {
+                    if (o1.getGiaThue() == o2.getGiaThue()) {
+                        return 0;
+                    } else {
+                        return 1;
+                    }
+                }
+            }
+        });
+        adapterSach = new adapterSach(getContext(), list);
+        rcvSach.setAdapter(adapterSach);
+    }
+    public void sapXepNam() {
+        Collections.sort(list, new Comparator<Sach>() {
+            @Override
+            public int compare(Sach o1, Sach o2) {
+                if (o1.getNamXB() > o2.getNamXB()) {
+                    return 1;
+                } else {
+                    if (o1.getNamXB() == o2.getNamXB()) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                }
+            }
+        });
+        adapterSach = new adapterSach(getContext(), list);
+        rcvSach.setAdapter(adapterSach);
+    }
     public void OpenDialog_Them() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View view = getLayoutInflater().inflate(R.layout.layout_them_sach, null);
@@ -144,6 +236,7 @@ public class Fragment_Sach extends Fragment {
         txtTenSach = view.findViewById(R.id.txtTenSach);
         txtGiaThue = view.findViewById(R.id.txtGiaThue);
         spnLoaiSach = view.findViewById(R.id.spnLoaiSach);
+        txtNamXB = view.findViewById(R.id.txtNamXuatBan);
         ArrayList<LoaiSach> listLS = new ArrayList<>();
         listLS = daoLoaiSach.selectAll();
         ArrayList<String> loaiSachArr = new ArrayList<>();
@@ -168,16 +261,23 @@ public class Fragment_Sach extends Fragment {
             public void onClick(View v) {
                 String tenSach = txtTenSach.getText().toString().trim();
                 String giaThue = txtGiaThue.getText().toString().trim();
+                String namXB = txtNamXB.getText().toString().trim();
+                int nam = Calendar.getInstance().get(Calendar.YEAR);
 
-                if(tenSach.isEmpty() || giaThue.isEmpty() || loaiSachArr.isEmpty()) {
+                if(tenSach.isEmpty() || giaThue.isEmpty() || loaiSachArr.isEmpty() || namXB.isEmpty()) {
                     Toast.makeText(getContext(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else {
                     if(giaThue.matches("\\d+") == false) {
                         Toast.makeText(getContext(), "Giá tiền sai định dạng", Toast.LENGTH_SHORT).show();
                     } else if(Integer.valueOf(giaThue) < 0) {
                         Toast.makeText(getContext(), "Giá tiền phải lớn hơn 0", Toast.LENGTH_SHORT).show();
-                    }
-                    else if(daoSach.insert(new Sach(tenSach, Integer.parseInt(giaThue), index))) {
+                    }else if (namXB.matches("\\d+") == false) {
+                        Toast.makeText(getContext(), "Năm xuất bản phải là số", Toast.LENGTH_SHORT).show();
+                    } else if (namXB.length() != 4) {
+                        Toast.makeText(getContext(), "Năm xuất bản sai định dạng ", Toast.LENGTH_SHORT).show();
+                    } else if (Integer.valueOf(namXB) > nam) {
+                        Toast.makeText(getContext(), "Năm nay mới là năm "+nam, Toast.LENGTH_SHORT).show();
+                    } else if(daoSach.insert(new Sach(tenSach, Integer.parseInt(giaThue), Integer.valueOf(namXB), index))) {
                         list.clear();
                         list.addAll(daoSach.selectAll());
                         dialog.dismiss();

@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +44,7 @@ public class Fragment_ThanhVien extends Fragment {
     ArrayList<ThanhVien> searchList;
     daoThanhVien daoThanhVien;
     adapterThanhVien adapterThanhVien;
-    TextView txtTenTV, txtNamSinh;
+    EditText txtTenTV, txtNamSinh, txtCccd;
     SearchView searchView;
     int ngay, thang, nam;
     android.icu.text.SimpleDateFormat  sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -87,6 +88,7 @@ public class Fragment_ThanhVien extends Fragment {
                             tv.setMaTV(list.get(i).getMaTV());
                             tv.setTenTV(list.get(i).getTenTV());
                             tv.setNamSinh(list.get(i).getNamSinh());
+                            tv.setCCCD(list.get(i).getCCCD());
                             searchList.add(tv);
                         }
                     }
@@ -116,6 +118,7 @@ public class Fragment_ThanhVien extends Fragment {
                             tv.setMaTV(list.get(i).getMaTV());
                             tv.setTenTV(list.get(i).getTenTV());
                             tv.setNamSinh(list.get(i).getNamSinh());
+                            tv.setCCCD(list.get(i).getCCCD());
                             searchList.add(tv);
                         }
                     }
@@ -147,6 +150,7 @@ public class Fragment_ThanhVien extends Fragment {
 
         txtTenTV = view.findViewById(R.id.txtTenTV);
         txtNamSinh = view.findViewById(R.id.txtNamSinh);
+        txtCccd = view.findViewById(R.id.txtCCCD);
 
         txtNamSinh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,10 +169,15 @@ public class Fragment_ThanhVien extends Fragment {
             public void onClick(View v) {
                 String tenTV = txtTenTV.getText().toString().trim();
                 String namSinh = txtNamSinh.getText().toString().trim();
-                if(tenTV.isEmpty() || namSinh.isEmpty()) {
+                String cccd = txtCccd.getText().toString().trim();
+                if(tenTV.isEmpty() || namSinh.isEmpty() || cccd.isEmpty()) {
                     Toast.makeText(getContext(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                } else if(!cccd.matches("\\d+")) {
+                    Toast.makeText(getContext(), "CCCD phải là số", Toast.LENGTH_SHORT).show();
+                } else if(cccd.length() < 12 || cccd.length() > 12) {
+                    Toast.makeText(getContext(), "CCCD phải đủ 12 số", Toast.LENGTH_SHORT).show();
                 } else {
-                    if(daoThanhVien.insert(new ThanhVien(tenTV, namSinh))) {
+                    if(daoThanhVien.insert(new ThanhVien(tenTV, namSinh, cccd))) {
                         list.clear();
                         list.addAll(daoThanhVien.selectAll());
                         dialog.dismiss();

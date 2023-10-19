@@ -32,6 +32,7 @@ public class daoThanhVien {
                     tv.setMaTV(cursor.getInt(0));
                     tv.setTenTV(cursor.getString(1));
                     tv.setNamSinh(cursor.getString(2));
+                    tv.setCCCD(cursor.getString(3));
                     list.add(tv);
                     cursor.moveToNext();
                 }
@@ -46,6 +47,7 @@ public class daoThanhVien {
         ContentValues values = new ContentValues();
         values.put("tenTV", tv.getTenTV());
         values.put("namSinh", tv.getNamSinh());
+        values.put("cccd", tv.getCCCD());
         long row = db.insert("tb_ThanhVien", null, values);
         return (row > 0);
     }
@@ -54,6 +56,7 @@ public class daoThanhVien {
         ContentValues values = new ContentValues();
         values.put("tenTV", tv.getTenTV());
         values.put("namSinh", tv.getNamSinh());
+        values.put("cccd", tv.getCCCD());
         long row = db.update("tb_ThanhVien", values, "maTV = ?", new String[]{String.valueOf(tv.getMaTV())});
         return (row > 0);
     }

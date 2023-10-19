@@ -27,11 +27,9 @@
             android:layout_marginVertical="5dp"
             app:hintTextColor="#000000"
             android:hint="Mật khẩu cũ"
-            app:endIconMode="password_toggle"
             app:errorTextColor="#FF0000"
             app:boxStrokeColor="@color/black"
             android:textColorHint="#80000000"
-            app:endIconDrawable="@drawable/password_icon"
             app:startIconDrawable="@drawable/lock_matkhau">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtMatKhauCu"
@@ -47,12 +45,10 @@
             android:layout_marginVertical="5dp"
             app:hintTextColor="#000000"
             android:hint="Mật khẩu mới"
-            app:endIconMode="password_toggle"
             app:errorTextColor="#FF0000"
             app:boxStrokeColor="@color/black"
             android:textColorHint="#80000000"
-            app:endIconDrawable="@drawable/password_icon"
-            app:startIconDrawable="@drawable/lock_matkhau">
+            app:startIconDrawable="@drawable/key1">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtMatKhauMoi"
                 android:layout_width="match_parent"
@@ -67,12 +63,10 @@
             android:layout_marginVertical="5dp"
             app:hintTextColor="#000000"
             android:hint="Xác nhận mật khẩu"
-            app:endIconMode="password_toggle"
             app:errorTextColor="#FF0000"
             app:boxStrokeColor="@color/black"
             android:textColorHint="#80000000"
-            app:endIconDrawable="@drawable/password_icon"
-            app:startIconDrawable="@drawable/lock_matkhau">
+            app:startIconDrawable="@drawable/key1">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtMatKhauXacNhan"
                 android:layout_width="match_parent"

@@ -119,7 +119,7 @@
                 android:id="@+id/btnUpdate_PM"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lưu"
+                android:text="Sửa"
                 android:textColor="#8692F7"
                 android:background="#00000000"
                 android:textStyle="bold" />
