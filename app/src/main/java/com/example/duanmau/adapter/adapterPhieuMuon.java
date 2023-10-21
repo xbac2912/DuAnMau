@@ -123,7 +123,9 @@ public class adapterPhieuMuon extends RecyclerView.Adapter<adapterPhieuMuon.View
         builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (daoPhieuMuon.delete(index.getMaPhieuMuon())) {
+                if (index.getTrangThai() == 0) {
+                    Toast.makeText(context, "Sách chưa được trả không thể xóa", Toast.LENGTH_SHORT).show();
+                } else if (daoPhieuMuon.delete(index.getMaPhieuMuon())) {
                     list.clear();
                     list.addAll(daoPhieuMuon.selectAll());
                     notifyDataSetChanged();

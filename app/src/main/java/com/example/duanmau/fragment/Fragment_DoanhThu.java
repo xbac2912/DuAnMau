@@ -41,9 +41,9 @@ public class Fragment_DoanhThu extends Fragment {
     android.icu.text.SimpleDateFormat  sdf = new SimpleDateFormat("yyyy/MM/dd");
     int ngay, thang, nam;
     daoPhieuMuon daoPhieuMuon;
-    BarChart barChart;
-    ArrayList<BarEntry> listBarEntry;
-    ArrayList<String> labelName;
+//    BarChart barChart;
+//    ArrayList<BarEntry> listBarEntry;
+//    ArrayList<String> labelName;
     ArrayList<ThongKeDoanhThu> listThongKe = new ArrayList<>();
     public Fragment_DoanhThu() {
         // Required empty public constructor
@@ -62,38 +62,38 @@ public class Fragment_DoanhThu extends Fragment {
         btnDenNgay = view.findViewById(R.id.btnDenNgay);
         btnDoanhThu = view.findViewById(R.id.btnDoanhThu);
         //-------------------//
-        daoPhieuMuon = new daoPhieuMuon(getContext());
-        barChart = view.findViewById(R.id.BarChart);
-        listBarEntry = new ArrayList<>();
-        labelName = new ArrayList<>();
-        //
-        themThang();
-        for (int i = 0; i < listThongKe.size(); i++) {
-            String thang =  listThongKe.get(i).getThang();
-            int doanhThu = listThongKe.get(i).getDoanhThu();
-
-            listBarEntry.add(new BarEntry(i, doanhThu));
-            labelName.add(thang);
-        }
-        BarDataSet barDataSet = new BarDataSet(listBarEntry, "Tháng");
-        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        Description description = new Description();
-        description.setText("Biểu đồ thống kê doanh thu trong năm " + Calendar.getInstance().get(Calendar.YEAR));
-        description.setTextSize(15);
-        barChart.setDescription(description);
-        BarData barData = new BarData(barDataSet);
-        barChart.setData(barData);
-        //
-        XAxis xAxis = barChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(labelName));
-        //
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(false);
-        xAxis.setDrawAxisLine(false);
-        xAxis.setLabelCount(labelName.size());
-        xAxis.setLabelRotationAngle(270);
-        barChart.animateX(2000);
-        barChart.invalidate();
+//        daoPhieuMuon = new daoPhieuMuon(getContext());
+//        barChart = view.findViewById(R.id.BarChart);
+//        listBarEntry = new ArrayList<>();
+//        labelName = new ArrayList<>();
+//        //
+//        themThang();
+//        for (int i = 0; i < listThongKe.size(); i++) {
+//            String thang =  listThongKe.get(i).getThang();
+//            int doanhThu = listThongKe.get(i).getDoanhThu();
+//
+//            listBarEntry.add(new BarEntry(i, doanhThu));
+//            labelName.add(thang);
+//        }
+//        BarDataSet barDataSet = new BarDataSet(listBarEntry, "Tháng");
+//        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+//        Description description = new Description();
+//        description.setText("Biểu đồ thống kê doanh thu trong năm " + Calendar.getInstance().get(Calendar.YEAR));
+//        description.setTextSize(15);
+//        barChart.setDescription(description);
+//        BarData barData = new BarData(barDataSet);
+//        barChart.setData(barData);
+//        //
+//        XAxis xAxis = barChart.getXAxis();
+//        xAxis.setValueFormatter(new IndexAxisValueFormatter(labelName));
+//        //
+//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+//        xAxis.setDrawGridLines(false);
+//        xAxis.setDrawAxisLine(false);
+//        xAxis.setLabelCount(labelName.size());
+//        xAxis.setLabelRotationAngle(270);
+//        barChart.animateX(2000);
+//        barChart.invalidate();
         //-------------------------//
         btnTuNgay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,22 +155,22 @@ public class Fragment_DoanhThu extends Fragment {
             txtDenNgay.setText(sdf.format(gregorianCalendar.getTime()));
         }
     };
-    private String doanhThu(String ngay, String thang) {
-        return Calendar.getInstance().get(Calendar.YEAR)+"/"+thang+"/"+ngay;
-    }
-    private void themThang() {
-        listThongKe.clear();
-        listThongKe.add(new ThongKeDoanhThu("T1", daoPhieuMuon.getDoanhThu(doanhThu("01", "01"),doanhThu("31", "01"))));
-        listThongKe.add(new ThongKeDoanhThu("T2", daoPhieuMuon.getDoanhThu(doanhThu("01", "02"),doanhThu("29", "02"))));
-        listThongKe.add(new ThongKeDoanhThu("T3", daoPhieuMuon.getDoanhThu(doanhThu("01", "03"),doanhThu("31", "03"))));
-        listThongKe.add(new ThongKeDoanhThu("T4", daoPhieuMuon.getDoanhThu(doanhThu("01", "04"),doanhThu("30", "04"))));
-        listThongKe.add(new ThongKeDoanhThu("T5", daoPhieuMuon.getDoanhThu(doanhThu("01", "05"),doanhThu("31", "05"))));
-        listThongKe.add(new ThongKeDoanhThu("T6", daoPhieuMuon.getDoanhThu(doanhThu("01", "06"),doanhThu("30", "06"))));
-        listThongKe.add(new ThongKeDoanhThu("T7", daoPhieuMuon.getDoanhThu(doanhThu("01", "07"),doanhThu("31", "07"))));
-        listThongKe.add(new ThongKeDoanhThu("T8", daoPhieuMuon.getDoanhThu(doanhThu("01", "08"),doanhThu("31", "08"))));
-        listThongKe.add(new ThongKeDoanhThu("T9", daoPhieuMuon.getDoanhThu(doanhThu("01", "09"),doanhThu("30", "09"))));
-        listThongKe.add(new ThongKeDoanhThu("T10", daoPhieuMuon.getDoanhThu(doanhThu("01", "10"),doanhThu("31", "10"))));
-        listThongKe.add(new ThongKeDoanhThu("T11", daoPhieuMuon.getDoanhThu(doanhThu("01", "11"),doanhThu("30", "11"))));
-        listThongKe.add(new ThongKeDoanhThu("T12", daoPhieuMuon.getDoanhThu(doanhThu("01", "12"),doanhThu("31", "12"))));
-    }
+//    private String doanhThu(String ngay, String thang) {
+//        return Calendar.getInstance().get(Calendar.YEAR)+"/"+thang+"/"+ngay;
+//    }
+//    private void themThang() {
+//        listThongKe.clear();
+//        listThongKe.add(new ThongKeDoanhThu("T1", daoPhieuMuon.getDoanhThu(doanhThu("01", "01"),doanhThu("31", "01"))));
+//        listThongKe.add(new ThongKeDoanhThu("T2", daoPhieuMuon.getDoanhThu(doanhThu("01", "02"),doanhThu("29", "02"))));
+//        listThongKe.add(new ThongKeDoanhThu("T3", daoPhieuMuon.getDoanhThu(doanhThu("01", "03"),doanhThu("31", "03"))));
+//        listThongKe.add(new ThongKeDoanhThu("T4", daoPhieuMuon.getDoanhThu(doanhThu("01", "04"),doanhThu("30", "04"))));
+//        listThongKe.add(new ThongKeDoanhThu("T5", daoPhieuMuon.getDoanhThu(doanhThu("01", "05"),doanhThu("31", "05"))));
+//        listThongKe.add(new ThongKeDoanhThu("T6", daoPhieuMuon.getDoanhThu(doanhThu("01", "06"),doanhThu("30", "06"))));
+//        listThongKe.add(new ThongKeDoanhThu("T7", daoPhieuMuon.getDoanhThu(doanhThu("01", "07"),doanhThu("31", "07"))));
+//        listThongKe.add(new ThongKeDoanhThu("T8", daoPhieuMuon.getDoanhThu(doanhThu("01", "08"),doanhThu("31", "08"))));
+//        listThongKe.add(new ThongKeDoanhThu("T9", daoPhieuMuon.getDoanhThu(doanhThu("01", "09"),doanhThu("30", "09"))));
+//        listThongKe.add(new ThongKeDoanhThu("T10", daoPhieuMuon.getDoanhThu(doanhThu("01", "10"),doanhThu("31", "10"))));
+//        listThongKe.add(new ThongKeDoanhThu("T11", daoPhieuMuon.getDoanhThu(doanhThu("01", "11"),doanhThu("30", "11"))));
+//        listThongKe.add(new ThongKeDoanhThu("T12", daoPhieuMuon.getDoanhThu(doanhThu("01", "12"),doanhThu("31", "12"))));
+//    }
 }

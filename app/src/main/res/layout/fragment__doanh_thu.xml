@@ -73,9 +73,9 @@
         android:padding="10dp"
         android:text="Doanh Thu: "
         android:textStyle="bold"/>
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/BarChart"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginVertical="20dp" />
+<!--    <com.github.mikephil.charting.charts.BarChart-->
+<!--        android:id="@+id/BarChart"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="300dp"-->
+<!--        android:layout_marginVertical="20dp" />-->
 </LinearLayout>

@@ -14,8 +14,7 @@
         android:layout_height="75dp"
         android:padding="2dp"
         android:scaleType="fitXY"
-        android:background="@drawable/khung_usename"
-        android:src="@drawable/img"/>
+        android:src="@drawable/img_3"/>
 
     <TextView
         android:id="@+id/username"
