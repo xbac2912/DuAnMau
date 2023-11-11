@@ -193,15 +193,16 @@ public class Fragment_Sach extends Fragment {
         Collections.sort(list, new Comparator<Sach>() {
             @Override
             public int compare(Sach o1, Sach o2) {
-                if (o1.getGiaThue() > o2.getGiaThue()) {
-                    return -1;
-                } else {
-                    if (o1.getGiaThue() == o2.getGiaThue()) {
-                        return 0;
-                    } else {
-                        return 1;
-                    }
-                }
+//                if (o1.getGiaThue() > o2.getGiaThue()) {
+//                    return -1;
+//                } else {
+//                    if (o1.getGiaThue() == o2.getGiaThue()) {
+//                        return 0;
+//                    } else {
+//                        return 1;
+//                    }
+//                }
+                return o1.getTenSach().compareTo(o2.getTenSach());
             }
         });
         adapterSach = new adapterSach(getContext(), list);
@@ -211,15 +212,16 @@ public class Fragment_Sach extends Fragment {
         Collections.sort(list, new Comparator<Sach>() {
             @Override
             public int compare(Sach o1, Sach o2) {
-                if (o1.getNamXB() > o2.getNamXB()) {
-                    return 1;
-                } else {
-                    if (o1.getNamXB() == o2.getNamXB()) {
-                        return 0;
-                    } else {
-                        return -1;
-                    }
-                }
+//                if (o1.getNamXB() > o2.getNamXB()) {
+//                    return 1;
+//                } else {
+//                    if (o1.getNamXB() == o2.getNamXB()) {
+//                        return 0;
+//                    } else {
+//                        return -1;
+//                    }
+//                }
+                return o2.getTenSach().compareTo(o1.getTenSach());
             }
         });
         adapterSach = new adapterSach(getContext(), list);

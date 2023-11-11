@@ -163,6 +163,9 @@ public class adapterPhieuMuon extends RecyclerView.Adapter<adapterPhieuMuon.View
         daoSach = new daoSach(context);
         daoThanhVien = new daoThanhVien(context);
 
+        txtNgayThue.setEnabled(false);
+        txtTienThue.setEnabled(false);
+
         ArrayList<Sach> listS = new ArrayList<>();
         listS = daoSach.selectAll();
         ArrayList<String> sachArr = new ArrayList<>();

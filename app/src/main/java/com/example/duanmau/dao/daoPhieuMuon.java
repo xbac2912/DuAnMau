@@ -43,7 +43,7 @@ public class daoPhieuMuon {
                     pm.setNgayMuon(cursor.getString(5));
                     pm.setTrangThai(cursor.getInt(6));
                     pm.setTenTV(cursor.getString(8));
-                    pm.setTenSach(cursor.getString(11));
+                    pm.setTenSach(cursor.getString(12));
 //                    values.put("tienThue", cursor.getInt(12));
 //                    dbb.update("tb_PhieuMuon", values, "maPhieuMuon = ?", new String[]{String.valueOf(cursor.getInt(0))});
                     list.add(pm);
